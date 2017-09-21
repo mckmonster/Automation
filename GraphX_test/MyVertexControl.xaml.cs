@@ -25,9 +25,26 @@ namespace GraphX_test
         {
             InitializeComponent();
 
-            if (DesignerProperties.GetIsInDesignMode(this))
+            DataContextChanged += MyVertexControl_DataContextChanged;
+        }
+
+        private void MyVertexControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var job = e.NewValue;
+            var type = job.GetType();
+            foreach (var prop in type.GetProperties())
             {
-                DataContext = new HoudiniJob("Test_job");
+                var attr = prop.GetCustomAttributes(typeof(EditorAttribute), true);
+                if (attr.Length > 0 )
+                {
+                    var property = new Property()
+                    {
+                        Name = prop.Name,
+                        Value = prop.GetValue(job)
+                    };
+
+                    properties.Items.Add(property);
+                }
             }
         }
     }
