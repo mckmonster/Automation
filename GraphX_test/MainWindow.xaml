@@ -4,9 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GraphX_test"
+        xmlns:graphx="http://schemas.panthernet.ru/graphx/"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ToolBarTray Grid.Row="0">
+            <ToolBar>
+                <Button Click="Load_Click">Load</Button>
+                <Button Click="Save_Click">Save</Button>
+            </ToolBar>
+        </ToolBarTray>
+        <graphx:ZoomControl Grid.Row="1" Name="zoomCtrl">
+            <local:MyArea x:Name="myArea"/>
+        </graphx:ZoomControl>
     </Grid>
 </Window>
