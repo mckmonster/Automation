@@ -37,11 +37,18 @@ namespace GraphX_test
                 var attr = prop.GetCustomAttributes(typeof(EditorAttribute), true);
                 if (attr.Length > 0 )
                 {
+                    Binding bind = new Binding()
+                    {
+                        Path = new PropertyPath(prop.Name),
+                        Source = job,
+                        Mode = BindingMode.TwoWay
+                    };
+
                     var property = new Property()
                     {
-                        Name = prop.Name,
-                        Value = prop.GetValue(job)
+                        Name = prop.Name
                     };
+                    BindingOperations.SetBinding(property, Property.ValueProperty, bind);
 
                     properties.Items.Add(property);
                 }
