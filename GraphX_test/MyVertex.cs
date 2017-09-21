@@ -51,8 +51,35 @@ namespace GraphX_test
         [Editor]
         public string CodeVersion { get; set; }
 
+        public HoudiniJob() : this("HoudiniJob")
+        {
+
+        }
+
         public HoudiniJob(string name) : base(name)
         {
         }
+    }
+
+    public class RockDeformation : HoudiniJob
+    {
+        public RockDeformation() : base("RockDeform")
+        {
+            World = "STP_Japan";
+        }
+    }
+
+    public class Composite : HoudiniJob
+    {
+        public Composite() : base("Composite")
+        {
+
+        }
+    }
+
+    public class SetSelection : HoudiniJob
+    {
+        public SetSelection() : base("SetSelection")
+        { }
     }
 }

@@ -52,10 +52,18 @@ namespace GraphX_test
         {
             if (e.LeftButton == MouseButtonState.Pressed && edit)
             {
-                var vertex = new HoudiniJob("new Job");
+                edit = false;
+
                 var pos = zoomCtrl.TranslatePoint(e.GetPosition(zoomCtrl), myArea);
                 pos.Offset(-22.5, -22.5);
-                myArea.AddJob(vertex, pos);
+
+                var chooses = new ChooseJobType();
+                var result = chooses.ShowDialog();
+                if (result.HasValue & result.Value)
+                {
+                    var vertex = chooses.SelectedJob;
+                    myArea.AddJob(vertex, pos);
+                }
             }
         }
 
