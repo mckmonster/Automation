@@ -16,6 +16,7 @@
             <ToolBar>
                 <Button Click="Load_Click">Load</Button>
                 <Button Click="Save_Click">Save</Button>
+                <Button Click="Execute_Click">Execute</Button>
             </ToolBar>
         </ToolBarTray>
         <graphx:ZoomControl Grid.Row="1" Name="zoomCtrl">

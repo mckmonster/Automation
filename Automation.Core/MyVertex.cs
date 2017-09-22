@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows;
 using System;
 using System.Threading.Tasks;
+using log4net;
 
 namespace GraphX_test
 {
@@ -26,6 +27,8 @@ namespace GraphX_test
 
     public abstract class Job : VertexBase
     {
+        protected ILog _log = log4net.LogManager.GetLogger("Automation.Core");
+
         public event Action<Job> OnFinished;
         public event Action<Job> OnLaunch;
 
@@ -36,28 +39,31 @@ namespace GraphX_test
             get;
             private set;
         }
-        public object InEdges { get; internal set; }
-
+        
         public Job(string name)
         {
             Name = name;
         }
 
-        protected virtual void Execute()
-        {
-
-        }
+        protected abstract void Execute();
+        
 
         internal void RegisterFinished(Job vertex)
         {
             _nbPreviousJob++;
+            _log.Debug($"Register {_nbPreviousJob} {Name}, link on {vertex.Name}");
             vertex.OnFinished += PreviousJob_OnFinished;
         }
 
         private void PreviousJob_OnFinished(Job _job)
         {
             _nbPreviousJob--;
-            Task.Run( () => Launch());
+            _job.OnFinished -= PreviousJob_OnFinished;
+            _log.Debug($"{Name} to finished {_nbPreviousJob}");
+            if (_nbPreviousJob == 0)
+            {                
+                Task.Run(() => Launch());
+            }
         }
 
         internal void Launch()
@@ -71,11 +77,13 @@ namespace GraphX_test
 
         private void Start()
         {
+            _log.Info($"Start {Name}");
             OnLaunch?.Invoke(this);
         }
 
         private void Finish()
         {
+            _log.Info($"{Name} finished");
             OnFinished?.Invoke(this);
         }
     }
@@ -97,11 +105,16 @@ namespace GraphX_test
 
         public HoudiniJob() : this("HoudiniJob")
         {
-
+            
         }
 
         public HoudiniJob(string name) : base(name)
         {
+        }
+
+        protected override void Execute()
+        {
+            _log.Info($"Execute {Name}");
         }
     }
 

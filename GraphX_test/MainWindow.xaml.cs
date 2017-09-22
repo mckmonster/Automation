@@ -166,5 +166,10 @@ namespace GraphX_test
         {
             //TODO make function to load graph
         }
+
+        private void Execute_Click(object sender, RoutedEventArgs e)
+        {
+            GraphExecute.Execute(myArea.LogicCore.Graph);
+        }
     }
 }
