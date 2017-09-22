@@ -71,7 +71,9 @@ namespace GraphX_test
         {
             if (args.MouseArgs.RightButton == MouseButtonState.Pressed)
             {
-                myArea.RemoveEdge(args.EdgeControl.Edge as MyEdge);
+                var edge = args.EdgeControl.Edge as MyEdge;
+                myArea.LogicCore.Graph.RemoveEdge(edge);
+                myArea.RemoveEdge(edge);
             }
         }
 
