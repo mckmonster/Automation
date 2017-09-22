@@ -20,12 +20,13 @@ namespace GraphX_test
     /// </summary>
     public partial class ChooseJobType : Window
     {
+        private Assembly assembly = Assembly.GetAssembly(typeof(Job));
         public Job SelectedJob
         {
             get
             {
                 var type = joblist.SelectedItem as Type;
-                return Assembly.GetExecutingAssembly().CreateInstance(type.FullName) as Job;
+                return assembly.CreateInstance(type.FullName) as Job;
             }
         }
 
@@ -33,7 +34,6 @@ namespace GraphX_test
         {
             InitializeComponent();
 
-            var assembly = Assembly.GetExecutingAssembly();
             foreach (var type in assembly.GetTypes())
             {
                 if (type.IsAbstract)

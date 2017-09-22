@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System;
+using System.Threading.Tasks;
 
 namespace GraphX_test
 {
     public class Property : DependencyObject
     {
-        internal static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Property));
-        internal static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(Property));
+        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Property));
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(Property));
 
         public string Name
         {
@@ -24,15 +26,57 @@ namespace GraphX_test
 
     public abstract class Job : VertexBase
     {
+        public event Action<Job> OnFinished;
+        public event Action<Job> OnLaunch;
+
+        private int _nbPreviousJob;
+
         public string Name
         {
             get;
             private set;
         }
+        public object InEdges { get; internal set; }
 
         public Job(string name)
         {
             Name = name;
+        }
+
+        protected virtual void Execute()
+        {
+
+        }
+
+        internal void RegisterFinished(Job vertex)
+        {
+            _nbPreviousJob++;
+            vertex.OnFinished += PreviousJob_OnFinished;
+        }
+
+        private void PreviousJob_OnFinished(Job _job)
+        {
+            _nbPreviousJob--;
+            Task.Run( () => Launch());
+        }
+
+        internal void Launch()
+        {
+            Start();
+            
+            Execute();
+
+            Finish();            
+        }
+
+        private void Start()
+        {
+            OnLaunch?.Invoke(this);
+        }
+
+        private void Finish()
+        {
+            OnFinished?.Invoke(this);
         }
     }
 
