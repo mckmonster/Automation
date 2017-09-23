@@ -78,7 +78,7 @@
     <Compile Include="MyGraph.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Property.cs" />
+    <Compile Include="PropertyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

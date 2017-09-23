@@ -2,11 +2,14 @@
 using System;
 using System.ComponentModel;
 using System.Threading;
+using System.Windows;
 
 namespace Automation.Test.Plugin
 {
     public class HoudiniJob : UbuildJob
     {
+        public static readonly DependencyProperty WorldNameProperty = DependencyProperty.Register("WorldName", typeof(string), typeof(HoudiniJob));
+
         [Editable]
         public string WorldName
         {

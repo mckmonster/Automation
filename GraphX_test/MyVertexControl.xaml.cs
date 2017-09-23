@@ -33,10 +33,12 @@ namespace GraphX_test
         {
             var job = e.NewValue;
             var type = job.GetType();
+
             foreach (var prop in type.GetProperties())
             {
                 var attr = prop.GetCustomAttributes(typeof(EditableAttribute), true);
-                if (attr.Length > 0 )
+
+                if (attr.Length > 0)
                 {
                     Binding bind = new Binding()
                     {
@@ -45,11 +47,11 @@ namespace GraphX_test
                         Mode = BindingMode.TwoWay
                     };
 
-                    var property = new Property()
+                    var property = new PropertyInfo()
                     {
                         Name = prop.Name
                     };
-                    BindingOperations.SetBinding(property, Property.ValueProperty, bind);
+                    BindingOperations.SetBinding(property, PropertyInfo.ValueProperty, bind);
 
                     properties.Items.Add(property);
                 }

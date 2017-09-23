@@ -8,6 +8,27 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <local:JobStateToColorConverter x:Key="JobStateToColor"/>
+        <DataTemplate x:Key="DefaultPropertyTemplate">
+            <Grid Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,1,0"/>
+                <TextBox  Grid.Column="1" Text="{Binding Value}"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="BoolPropertyTemplate">
+            <Grid Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,1,0"/>
+                <CheckBox Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding Value}"/>
+            </Grid>
+        </DataTemplate>
+        <local:PropertyDataTemplateSelector x:Key="PropertyTemplateSelector" DefaultDataTemplate="{StaticResource DefaultPropertyTemplate}" BoolDataTemplate="{StaticResource BoolPropertyTemplate}"/>
     </UserControl.Resources>
     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
         <Grid>
@@ -17,20 +38,7 @@
             </Grid.RowDefinitions>
             <Border Background="{Binding State, Converter={StaticResource JobStateToColor}}" CornerRadius="10,10,0,0"/>
             <Expander Grid.Row="1" Margin="2" IsExpanded="True"  Header="{Binding Name}">
-                <ItemsControl x:Name="properties">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="100"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,1,0"/>
-                                <TextBox  Grid.Column="1" Text="{Binding Value}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <ItemsControl x:Name="properties" ItemTemplateSelector="{StaticResource PropertyTemplateSelector}"/>
             </Expander>
         </Grid>
     </Border>

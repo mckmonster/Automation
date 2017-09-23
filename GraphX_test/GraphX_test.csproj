@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="JobStateToColorConverter.cs" />
     <Compile Include="MyArea.cs" />
+    <Compile Include="PropertySelectorDataSelector.cs" />
     <Page Include="ChooseJobType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

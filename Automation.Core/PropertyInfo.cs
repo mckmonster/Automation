@@ -2,10 +2,10 @@
 
 namespace GraphX_test
 {
-    public class Property : DependencyObject
+    public class PropertyInfo : DependencyObject
     {
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Property));
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(Property));
+        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(PropertyInfo));
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(PropertyInfo));
 
         public string Name
         {
