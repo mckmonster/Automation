@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Automation.Core;
+using System;
 using System.ComponentModel;
 using System.Threading;
 
@@ -6,15 +7,52 @@ namespace Automation.Test.Plugin
 {
     public class HoudiniJob : UbuildJob
     {
-        public string World
+        [Editable]
+        public string WorldName
         {
             get;
             set;
         }
 
-        public string Property2 { get; set; }
+        [Editable]
+        public string User
+        {
+            get;
+            set;
+        }
 
-        public string CodeVersion { get; set; }
+        [Editable]
+        public bool NEEDS_TERRAIN { get; set; }
+
+        [Editable]
+        public string Frames { get; set; }
+
+        [Editable]
+        public string Start_Frame { get; set; }
+
+        [Editable]
+        public string Tile_Min { get; set; }
+
+        [Editable]
+        public bool DONTCLEAN { get; set; }
+
+        [Editable]
+        public bool NEEDS_SCIMITAR { get; set; }
+        
+        [Editable]
+        public string CodeVersionId { get; set; }
+
+        [Editable]
+        public string PCCodeVersionId { get; set; }
+
+        [Editable]
+        public string BigFileCodeVersionId { get; set; }
+
+        [Editable]
+        public string MapName { get; set; }
+
+        [Editable]
+        public string StatFile { get; set; }
 
         public HoudiniJob() : this("HoudiniJob")
         {

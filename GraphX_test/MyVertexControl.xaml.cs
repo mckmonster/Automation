@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Automation.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace GraphX_test
             var type = job.GetType();
             foreach (var prop in type.GetProperties())
             {
-                var attr = prop.GetCustomAttributes(typeof(EditorAttribute), true);
+                var attr = prop.GetCustomAttributes(typeof(EditableAttribute), true);
                 if (attr.Length > 0 )
                 {
                     Binding bind = new Binding()

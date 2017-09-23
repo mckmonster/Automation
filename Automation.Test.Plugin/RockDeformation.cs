@@ -6,7 +6,7 @@ namespace Automation.Test.Plugin
     {
         public RockDeformation() : base("RockDeform")
         {
-            World = "STP_Japan";
+            WorldName = "STP_Japan";
         }
 
         protected override void Execute()
