@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System;
 using System.Threading.Tasks;
 using log4net;
+using System.Xml;
 
 namespace Automation.Core
 {
@@ -135,5 +136,7 @@ namespace Automation.Core
             _log.Info($"{Name} finished");
             OnFinished?.Invoke(this);
         }
+
+        public abstract void Save(XmlWriter wr);
     }
 }

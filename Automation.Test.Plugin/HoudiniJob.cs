@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows;
+using System.Xml;
 
 namespace Automation.Test.Plugin
 {
@@ -66,6 +67,11 @@ namespace Automation.Test.Plugin
         {
         }
 
-
+        public override void Save(XmlWriter wr)
+        {
+            wr.WriteElementString("WorldName", WorldName);
+            wr.WriteElementString("User", User);
+            wr.WriteElementString("NEEDS_TERRAIN", NEEDS_TERRAIN.ToString());
+        }
     }
 }

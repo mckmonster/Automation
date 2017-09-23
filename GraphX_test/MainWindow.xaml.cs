@@ -22,6 +22,7 @@ using System.Xml;
 using QuickGraph.Algorithms;
 using Automation.Core;
 using Automation.Test.Plugin;
+using Microsoft.Win32;
 
 namespace GraphX_test
 {
@@ -38,9 +39,9 @@ namespace GraphX_test
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            CreateRandomGraph();
-            myArea.GenerateGraph();
-            zoomCtrl.ZoomToFill(); // Zoome au mieux
+            //CreateRandomGraph();
+            //myArea.GenerateGraph();
+            //zoomCtrl.ZoomToFill(); // Zoome au mieux
 
             KeyDown += MainWindow_KeyDown;
             KeyUp += MainWindow_KeyUp;
@@ -117,57 +118,29 @@ namespace GraphX_test
             }
         }
 
-        private void CreateRandomGraph()
-        {
-            //Create data graph object
-            var graph = myArea.LogicCore.Graph;
-
-            var v1 = new HoudiniJob("RockGeneration");
-            var v2 = new HoudiniJob("RockClean");
-            var v3 = new HoudiniJob("TreeGeneration");
-            var v4 = new HoudiniJob("Test");
-            var v5 = new HoudiniJob("Finish");
-
-            myArea.AddJob(v1);
-            myArea.AddJob(v2);
-            myArea.AddJob(v3);
-            myArea.AddJob(v4);
-            myArea.AddJob(v5);
-
-            myArea.AddLink(v1, v2);
-            myArea.AddLink(v1, v3);
-            myArea.AddLink(v2, v3);
-            myArea.AddLink(v2, v4);
-            myArea.AddLink(v3, v5);
-            myArea.AddLink(v4, v5);
-        }
-
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            //TODO make function to save graph
-            FileStream stream = File.Open("test.xml", FileMode.Create, FileAccess.Write, FileShare.Read);
-            var serializer = new YAXSerializer(typeof(List<GraphSerializationData>));
-            using (var textWriter = new StreamWriter(stream))
+            var dlg = new SaveFileDialog { Filter = "All files|*.*", Title = "Select layout file name", FileName = "laytest.xml" };
+            if (dlg.ShowDialog() == true)
             {
-                serializer.Serialize(myArea.ExtractSerializationData(), textWriter);
-                textWriter.Flush();
-            }
-
-            var settings = new XmlWriterSettings()
-            {
-                Indent = true,
-            };
-            using (var writer = XmlWriter.Create("test2.xml", settings))
-            {
-                var graph = myArea.LogicCore.Graph;
-                graph.SerializeToXml(writer, v => v.Name.ToString(), AlgorithmExtensions.GetEdgeIdentity(graph), "Graph", "Job", "Edge", "");
+                GraphSerializer.Serialize(dlg.OpenFile(), myArea.LogicCore.Graph);
             }
         }
 
         private void Load_Click(object sender, RoutedEventArgs e)
         {
-            //TODO make function to load graph
-        }
+            var dlg = new OpenFileDialog { Filter = "All files|*.*", Title = "Select layout file", FileName = "laytest.xml" };
+            if (dlg.ShowDialog() != true) return;
+            try
+            {
+                myArea.LogicCore.Graph = GraphSerializer.DeSerialize(dlg.OpenFile());
+                myArea.GenerateGraph();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Failed to load layout file:\n {0}", ex));
+            }
+        }       
 
         private void Execute_Click(object sender, RoutedEventArgs e)
         {
