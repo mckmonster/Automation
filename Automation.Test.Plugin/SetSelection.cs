@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Automation.Core
+namespace Automation.Test.Plugin
 {
     public class SetSelection : HoudiniJob
     {

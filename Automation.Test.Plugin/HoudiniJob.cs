@@ -2,21 +2,18 @@
 using System.ComponentModel;
 using System.Threading;
 
-namespace Automation.Core
+namespace Automation.Test.Plugin
 {
     public class HoudiniJob : UbuildJob
     {
-        [Editor]
         public string World
         {
             get;
             set;
         }
 
-        [Editor]
         public string Property2 { get; set; }
 
-        [Editor]
         public string CodeVersion { get; set; }
 
         public HoudiniJob() : this("HoudiniJob")

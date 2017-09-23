@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphX_test", "GraphX_test\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.Core", "Automation.Core\Automation.Core.csproj", "{4580885E-B4C1-4424-9146-EEF64D97159E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.Test.Plugin", "Automation.Test.Plugin\Automation.Test.Plugin.csproj", "{E38255B7-1D38-425B-883B-BCEB6C1617D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4580885E-B4C1-4424-9146-EEF64D97159E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4580885E-B4C1-4424-9146-EEF64D97159E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4580885E-B4C1-4424-9146-EEF64D97159E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E38255B7-1D38-425B-883B-BCEB6C1617D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E38255B7-1D38-425B-883B-BCEB6C1617D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E38255B7-1D38-425B-883B-BCEB6C1617D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E38255B7-1D38-425B-883B-BCEB6C1617D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

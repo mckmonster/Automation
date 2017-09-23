@@ -21,6 +21,7 @@ using YAXLib;
 using System.Xml;
 using QuickGraph.Algorithms;
 using Automation.Core;
+using Automation.Test.Plugin;
 
 namespace GraphX_test
 {
