@@ -21,10 +21,15 @@ namespace GraphX_test
                 {
                     outEdge.Target.RegisterFinished(vertex);
                 }
+              
+            }
+
+            foreach (var vertex in graph.Vertices)
+            {
                 if (graph.IsInEdgesEmpty(vertex))
                 {
                     vertex.Launch();
-                }                
+                }
             }
         }
     }

@@ -171,5 +171,10 @@ namespace GraphX_test
         {
             GraphExecute.Execute(myArea.LogicCore.Graph);
         }
+
+        private void Retry_Click(object sender, RoutedEventArgs e)
+        {
+            GraphExecute.Execute(myArea.LogicCore.Graph, true);
+        }
     }
 }

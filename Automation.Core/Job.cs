@@ -61,6 +61,7 @@ namespace GraphX_test
             _nbPreviousJob--;
             if (_job.State != JobState.SUCCEED)
             {
+                _log.Debug($"{_job.Name} is failed stop {Name}");
                 _PreviousFailed = true;
             }
 
@@ -74,6 +75,7 @@ namespace GraphX_test
                 }
                 else
                 {
+                    _log.Debug($"Stop {Name} because previous are failed");
                     Finish();
                 }
             }
@@ -81,6 +83,15 @@ namespace GraphX_test
 
         internal void Launch()
         {
+            switch (State)
+            {
+                case JobState.SUCCEED:
+                    Finish();
+                    return;
+                case JobState.INPROGRESS:
+                    throw new Exception("You shouldn't be in {State} on Launch");
+            }
+
             Task.Run(() =>
             {
                 Start();
@@ -89,11 +100,14 @@ namespace GraphX_test
 
                 do
                 {
+                    State = JobState.INPROGRESS;
+
                     Execute();
 
                     if (State == JobState.FAILED)
                     {
                         _nbRetry++;
+                        _log.Debug($"Retry {Name} {_nbRetry} time(s)");
                     }
                     else if (State == JobState.SUCCEED)
                     {
@@ -103,7 +117,7 @@ namespace GraphX_test
                     {
                         throw new Exception($"We shouldn't be in state {State} after Execute");
                     }
-                } while (_nbRetry > NBRETRYMAX);
+                } while (_nbRetry <= NBRETRYMAX);
 
                 Finish();
             });
