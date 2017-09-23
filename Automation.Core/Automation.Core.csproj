@@ -82,6 +82,7 @@
     <Compile Include="Property.cs" />
     <Compile Include="RockDeformation.cs" />
     <Compile Include="SetSelection.cs" />
+    <Compile Include="UbuildJob.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

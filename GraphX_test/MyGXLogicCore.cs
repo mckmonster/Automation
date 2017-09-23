@@ -1,4 +1,5 @@
 ﻿using GraphX.PCL.Logic.Models;
+using Automation.Core;
 
 namespace GraphX_test
 {

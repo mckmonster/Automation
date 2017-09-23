@@ -9,7 +9,7 @@ using QuickGraph.Serialization;
 using QuickGraph.Algorithms;
 using System.Xml;
 
-namespace GraphX_test
+namespace Automation.Core
 {
 
     public class MyGraph : BidirectionalGraph<Job, MyEdge>

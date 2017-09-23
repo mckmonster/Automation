@@ -20,6 +20,7 @@ using QuickGraph.Serialization;
 using YAXLib;
 using System.Xml;
 using QuickGraph.Algorithms;
+using Automation.Core;
 
 namespace GraphX_test
 {

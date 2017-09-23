@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace GraphX_test
+namespace Automation.Core
 {
     public class Composite : HoudiniJob
     {

@@ -5,7 +5,7 @@ using System;
 using System.Threading.Tasks;
 using log4net;
 
-namespace GraphX_test
+namespace Automation.Core
 {
 
     public abstract class Job : VertexBase, INotifyPropertyChanged

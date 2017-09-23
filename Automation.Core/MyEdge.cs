@@ -1,7 +1,7 @@
 ﻿using System;
 using GraphX.PCL.Common.Models;
 
-namespace GraphX_test
+namespace Automation.Core
 {
     public partial class MyEdge : EdgeBase<Job>
     {

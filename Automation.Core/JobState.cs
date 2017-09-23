@@ -1,4 +1,4 @@
-﻿namespace GraphX_test
+﻿namespace Automation.Core
 {
     public enum JobState
     {
