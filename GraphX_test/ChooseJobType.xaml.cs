@@ -21,7 +21,7 @@ namespace GraphX_test
     /// </summary>
     public partial class ChooseJobType : Window
     {
-        private Assembly assembly = Assembly.GetAssembly(typeof(Job));
+        private Assembly assembly = Assembly.LoadFile(System.IO.Path.Combine(Environment.CurrentDirectory, "Automation.Test.Plugin.dll"));
         public Job SelectedJob
         {
             get
