@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Threading;
 
 namespace GraphX_test
@@ -27,13 +28,21 @@ namespace GraphX_test
         {
         }
 
+        private static Random _rand = new Random();
         protected override void Execute()
         {
             _log.Info($"Execute {Name}");
 
             Thread.Sleep(6000);
 
-            State = JobState.SUCCEED;
+            if (_rand.Next(100) < 50)
+            {
+                State = JobState.FAILED;
+            }
+            else
+            {
+                State = JobState.SUCCEED;
+            }
         }
     }
 }

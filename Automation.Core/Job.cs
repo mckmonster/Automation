@@ -17,8 +17,11 @@ namespace GraphX_test
         public event PropertyChangedEventHandler PropertyChanged;
 
         private int _nbPreviousJob;
+        private bool _PreviousFailed = false;
 
         private JobState _state = JobState.NONE;
+        private readonly int NBRETRYMAX = 3;
+
         public JobState State
         {
             get => _state;
@@ -36,18 +39,19 @@ namespace GraphX_test
             get;
             private set;
         }
-        
+
         public Job(string name)
         {
             Name = name;
         }
 
         protected abstract void Execute();
-        
+
 
         internal void RegisterFinished(Job vertex)
         {
             _nbPreviousJob++;
+            _PreviousFailed = false;
             _log.Debug($"Register {_nbPreviousJob} {Name}, link on {vertex.Name}");
             vertex.OnFinished += PreviousJob_OnFinished;
         }
@@ -55,11 +59,23 @@ namespace GraphX_test
         private void PreviousJob_OnFinished(Job _job)
         {
             _nbPreviousJob--;
+            if (_job.State != JobState.SUCCEED)
+            {
+                _PreviousFailed = true;
+            }
+
             _job.OnFinished -= PreviousJob_OnFinished;
             _log.Debug($"{Name} to finished {_nbPreviousJob}");
             if (_nbPreviousJob == 0)
-            {                
-                Launch();
+            {
+                if (!_PreviousFailed)
+                {
+                    Launch();
+                }
+                else
+                {
+                    Finish();
+                }
             }
         }
 
@@ -69,7 +85,25 @@ namespace GraphX_test
             {
                 Start();
 
-                Execute();
+                int _nbRetry = 0;
+
+                do
+                {
+                    Execute();
+
+                    if (State == JobState.FAILED)
+                    {
+                        _nbRetry++;
+                    }
+                    else if (State == JobState.SUCCEED)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception($"We shouldn't be in state {State} after Execute");
+                    }
+                } while (_nbRetry > NBRETRYMAX);
 
                 Finish();
             });
