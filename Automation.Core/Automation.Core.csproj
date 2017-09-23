@@ -71,11 +71,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Composite.cs" />
     <Compile Include="GraphExecute.cs" />
+    <Compile Include="HoudiniJob.cs" />
+    <Compile Include="JobState.cs" />
     <Compile Include="MyEdge.cs" />
     <Compile Include="MyGraph.cs" />
     <Compile Include="MyVertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Property.cs" />
+    <Compile Include="RockDeformation.cs" />
+    <Compile Include="SetSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

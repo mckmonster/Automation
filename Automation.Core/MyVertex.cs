@@ -1,39 +1,36 @@
 ﻿using GraphX.PCL.Common.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
 using System;
 using System.Threading.Tasks;
 using log4net;
 
 namespace GraphX_test
 {
-    public class Property : DependencyObject
-    {
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Property));
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(object), typeof(Property));
 
-        public string Name
-        {
-            get => (string)GetValue(NameProperty);
-            set => SetValue(NameProperty, value);
-        }
-        public object Value
-        {
-            get => GetValue(ValueProperty);
-            set => SetValue(ValueProperty, value);
-        }
-    }
-
-    public abstract class Job : VertexBase
+    public abstract class Job : VertexBase, INotifyPropertyChanged
     {
         protected ILog _log = log4net.LogManager.GetLogger("Automation.Core");
 
         public event Action<Job> OnFinished;
         public event Action<Job> OnLaunch;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private int _nbPreviousJob;
 
+        private JobState _state = JobState.NONE;
+        public JobState State
+        {
+            get => _state;
+            set
+            {
+                if (_state != value)
+                {
+                    _state = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("State"));
+                }
+            }
+        }
         public string Name
         {
             get;
@@ -62,23 +59,27 @@ namespace GraphX_test
             _log.Debug($"{Name} to finished {_nbPreviousJob}");
             if (_nbPreviousJob == 0)
             {                
-                Task.Run(() => Launch());
+                Launch();
             }
         }
 
         internal void Launch()
         {
-            Start();
-            
-            Execute();
+            Task.Run(() =>
+            {
+                Start();
 
-            Finish();            
+                Execute();
+
+                Finish();
+            });
         }
 
         private void Start()
         {
             _log.Info($"Start {Name}");
             OnLaunch?.Invoke(this);
+            State = JobState.INPROGRESS;
         }
 
         private void Finish()
@@ -86,57 +87,5 @@ namespace GraphX_test
             _log.Info($"{Name} finished");
             OnFinished?.Invoke(this);
         }
-    }
-
-    public class HoudiniJob : Job
-    {
-        [Editor]
-        public string World
-        {
-            get;
-            set;
-        }
-
-        [Editor]
-        public string Property2 { get; set; }
-
-        [Editor]
-        public string CodeVersion { get; set; }
-
-        public HoudiniJob() : this("HoudiniJob")
-        {
-            
-        }
-
-        public HoudiniJob(string name) : base(name)
-        {
-        }
-
-        protected override void Execute()
-        {
-            _log.Info($"Execute {Name}");
-        }
-    }
-
-    public class RockDeformation : HoudiniJob
-    {
-        public RockDeformation() : base("RockDeform")
-        {
-            World = "STP_Japan";
-        }
-    }
-
-    public class Composite : HoudiniJob
-    {
-        public Composite() : base("Composite")
-        {
-
-        }
-    }
-
-    public class SetSelection : HoudiniJob
-    {
-        public SetSelection() : base("SetSelection")
-        { }
     }
 }

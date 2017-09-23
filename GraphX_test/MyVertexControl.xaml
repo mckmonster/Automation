@@ -6,13 +6,16 @@
              xmlns:local="clr-namespace:GraphX_test"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:JobStateToColorConverter x:Key="JobStateToColor"/>
+    </UserControl.Resources>
     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border Background="Black" CornerRadius="10,10,0,0"/>
+            <Border Background="{Binding State, Converter={StaticResource JobStateToColor}}" CornerRadius="10,10,0,0"/>
             <Expander Grid.Row="1" Margin="2" IsExpanded="True"  Header="{Binding Name}">
                 <ItemsControl x:Name="properties">
                     <ItemsControl.ItemTemplate>

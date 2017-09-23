@@ -143,14 +143,12 @@ namespace GraphX_test
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             //TODO make function to save graph
-            using (FileStream stream = File.Open("test.xml", FileMode.Create, FileAccess.Write, FileShare.Read))
+            FileStream stream = File.Open("test.xml", FileMode.Create, FileAccess.Write, FileShare.Read);
+            var serializer = new YAXSerializer(typeof(List<GraphSerializationData>));
+            using (var textWriter = new StreamWriter(stream))
             {
-                var serializer = new YAXSerializer(typeof(List<GraphSerializationData>));
-                using (var textWriter = new StreamWriter(stream))
-                {
-                    serializer.Serialize(myArea.ExtractSerializationData(), textWriter);
-                    textWriter.Flush();
-                }
+                serializer.Serialize(myArea.ExtractSerializationData(), textWriter);
+                textWriter.Flush();
             }
 
             var settings = new XmlWriterSettings()
