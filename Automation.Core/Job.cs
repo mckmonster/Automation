@@ -136,7 +136,5 @@ namespace Automation.Core
             _log.Info($"{Name} finished");
             OnFinished?.Invoke(this);
         }
-
-        public abstract void Save(XmlWriter wr);
     }
 }

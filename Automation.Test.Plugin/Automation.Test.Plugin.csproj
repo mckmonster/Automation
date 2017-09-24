@@ -65,6 +65,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Composite2.cs" />
     <Compile Include="Composite.cs" />
     <Compile Include="Grouping.cs" />
     <Compile Include="HoudiniJob.cs" />

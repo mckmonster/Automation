@@ -72,12 +72,5 @@ namespace Automation.Test.Plugin
         public HoudiniJob(string name) : base(name)
         {
         }
-
-        public override void Save(XmlWriter wr)
-        {
-            wr.WriteElementString("WorldName", WorldName);
-            wr.WriteElementString("User", User);
-            wr.WriteElementString("NEEDS_TERRAIN", NEEDS_TERRAIN.ToString());
-        }
     }
 }

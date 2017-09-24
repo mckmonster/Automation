@@ -16,6 +16,10 @@ namespace Automation.Core
             var job = assembly.CreateInstance(type);
             return job as Job;
         }
+        public static Type GetType(string type)
+        {
+            return assembly.GetType(type);
+        }
 
         public static List<Type> AvailableTypes()
         {

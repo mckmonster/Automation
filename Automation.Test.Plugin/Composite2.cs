@@ -1,17 +1,16 @@
 ﻿using Automation.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+using System.Threading;
 
 namespace Automation.Test.Plugin
 {
-    public class RoadObjectsScatter : UbuildJob
+    public class Composite2 : UbuildJob
     {
         [Editable(ReadOnly = true)]
-        public string JobName { get; set; }
+        public string JobName
+        {
+            get;
+            set;
+        }
 
         [Editable]
         public string WorldName { get; set; }
@@ -30,10 +29,16 @@ namespace Automation.Test.Plugin
 
         public bool NEEDS_TERRAIN { get; set; }
 
-        public RoadObjectsScatter() : base("RoadObjectsScatter")
+        public Composite2() : base("Composite-02")
         {
-            JobName = "415-RoadObjectsScatter.hip";
+            JobName = "411-Composite-02.hip";
             NEEDS_TERRAIN = true;
+        }
+
+        protected override void Execute()
+        {
+            base.Execute();
+            Thread.Sleep(5000);
         }
     }
 }

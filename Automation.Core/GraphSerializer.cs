@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -22,29 +23,22 @@ namespace Automation.Core
             {
                 graph.SerializeToXml(writer, AlgorithmExtensions.GetVertexIdentity(graph), AlgorithmExtensions.GetEdgeIdentity(graph), "MyGraph", "Job", "MyEdge", "",
                     (wr, gr) => { },
-                    (wr, vr) => {
-                        wr.WriteAttributeString("type", vr.GetType().FullName);
-                        //vr.Save(wr);
-                    },
+                    SerializeNode,
                     (wr, ed) => { }
                 );
             }
+            stream.Close();
         }
 
+        private static List<Job> jobs = new List<Job>();
         public static MyGraph DeSerialize(Stream stream)
         {
-            List<Job> jobs = new List<Job>();
+            jobs.Clear();
             using (var reader = XmlReader.Create(stream))
             {
                 return reader.DeserializeFromXml<Job, MyEdge, MyGraph>("MyGraph", "Job", "MyEdge", "",
                     rd => { return new MyGraph(); },
-                    rd =>
-                    {
-                        var job = JobFactory.CreateJob(rd.GetAttribute("type"));
-                        job.ID = long.Parse(rd.GetAttribute("id"));
-                        jobs.Add(job);
-                        return job;
-                    },
+                    DeserializeNode,
                     rd =>
                     {
                         var source = jobs.Find(job => job.ID.Equals(long.Parse(rd.GetAttribute("source"))));
@@ -52,6 +46,27 @@ namespace Automation.Core
                         return new MyEdge(source, target);
                     });
             }
+        }
+
+        private static void SerializeNode(XmlWriter wr, Job vr)
+        {
+            wr.WriteAttributeString("type", vr.GetType().FullName);
+
+            var serializer = new YAXLib.YAXSerializer(vr.GetType());
+            var result = serializer.Serialize(vr);
+            wr.WriteRaw(result);
+        }
+
+        private static Job DeserializeNode(XmlReader rd)
+        {
+            var typestring = rd.GetAttribute("type");
+            var type = JobFactory.GetType(typestring);
+            var serializer = new YAXLib.YAXSerializer(type);
+            var id = long.Parse(rd.GetAttribute("id"));
+            var job = serializer.Deserialize(rd.ReadInnerXml()) as Job;
+            job.ID = id;
+            jobs.Add(job);
+            return job;
         }
     }
 }
