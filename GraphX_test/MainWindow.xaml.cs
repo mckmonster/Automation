@@ -57,10 +57,12 @@ namespace GraphX_test
             {
                 edit = false;
 
-                var pos = zoomCtrl.TranslatePoint(e.GetPosition(zoomCtrl), myArea);
-                pos.Offset(-22.5, -22.5);
-
                 var chooses = new ChooseJobType();
+                //TODO do a better stuf to open the window under mouse
+                var pos = Mouse.GetPosition(this);
+                chooses.Left = pos.X; 
+                chooses.Top = pos.Y;
+
                 var result = chooses.ShowDialog();
                 if (result.HasValue & result.Value)
                 {
