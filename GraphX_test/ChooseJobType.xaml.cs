@@ -21,13 +21,12 @@ namespace GraphX_test
     /// </summary>
     public partial class ChooseJobType : Window
     {
-        private Assembly assembly = Assembly.LoadFile(System.IO.Path.Combine(Environment.CurrentDirectory, "Automation.Test.Plugin.dll"));
         public Job SelectedJob
         {
             get
             {
                 var type = joblist.SelectedItem as Type;
-                return assembly.CreateInstance(type.FullName) as Job;
+                return JobFactory.CreateJob(type.FullName);
             }
         }
 
@@ -35,18 +34,7 @@ namespace GraphX_test
         {
             InitializeComponent();
 
-            foreach (var type in assembly.GetTypes())
-            {
-                if (type.IsAbstract)
-                {
-                    continue;
-                }
-
-                if (IsJobType(type))
-                {
-                    joblist.Items.Add(type);
-                }
-            }
+            joblist.ItemsSource = JobFactory.AvailableTypes();
         }
 
         private bool IsJobType(Type type)

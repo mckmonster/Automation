@@ -40,8 +40,7 @@ namespace Automation.Core
                     rd => { return new MyGraph(); },
                     rd =>
                     {
-                        var factory = new JobFactory();
-                        var job = factory.CreateJob(rd.GetAttribute("type"));
+                        var job = JobFactory.CreateJob(rd.GetAttribute("type"));
                         job.ID = long.Parse(rd.GetAttribute("id"));
                         jobs.Add(job);
                         return job;
