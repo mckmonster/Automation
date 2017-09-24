@@ -9,7 +9,13 @@ namespace Automation.Test.Plugin
 {
     public class HoudiniJob : UbuildJob
     {
-        public static readonly DependencyProperty WorldNameProperty = DependencyProperty.Register("WorldName", typeof(string), typeof(HoudiniJob));
+
+        [Editable]
+        public string JobName
+        {
+            get;
+            set;
+        }
 
         [Editable]
         public string WorldName

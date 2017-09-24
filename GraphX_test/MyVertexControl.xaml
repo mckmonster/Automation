@@ -18,6 +18,16 @@
                 <TextBox  Grid.Column="1" Text="{Binding Value}"/>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="ReadOnlyPropertyTemplate">
+            <Grid Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,1,0"/>
+                <TextBlock Grid.Column="1" Text="{Binding Value}"/>
+            </Grid>
+        </DataTemplate>
         <DataTemplate x:Key="BoolPropertyTemplate">
             <Grid Margin="2">
                 <Grid.ColumnDefinitions>
@@ -28,7 +38,7 @@
                 <CheckBox Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding Value}"/>
             </Grid>
         </DataTemplate>
-        <local:PropertyDataTemplateSelector x:Key="PropertyTemplateSelector" DefaultDataTemplate="{StaticResource DefaultPropertyTemplate}" BoolDataTemplate="{StaticResource BoolPropertyTemplate}"/>
+        <local:PropertyDataTemplateSelector x:Key="PropertyTemplateSelector" DefaultDataTemplate="{StaticResource DefaultPropertyTemplate}" BoolDataTemplate="{StaticResource BoolPropertyTemplate}" ReadOnlyTemplate="{StaticResource ReadOnlyPropertyTemplate}"/>
     </UserControl.Resources>
     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
         <Grid>

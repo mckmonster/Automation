@@ -9,5 +9,6 @@ namespace Automation.Core
     [AttributeUsage(AttributeTargets.Property)]
     public class EditableAttribute : Attribute
     {
+        public bool ReadOnly { get; set; } = false;
     }
 }

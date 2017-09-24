@@ -36,7 +36,7 @@ namespace GraphX_test
 
             foreach (var prop in type.GetProperties())
             {
-                var attr = prop.GetCustomAttributes(typeof(EditableAttribute), true);
+                var attr = (EditableAttribute[])prop.GetCustomAttributes(typeof(EditableAttribute), true);
 
                 if (attr.Length > 0)
                 {
@@ -49,7 +49,8 @@ namespace GraphX_test
 
                     var property = new PropertyInfo()
                     {
-                        Name = prop.Name
+                        Name = prop.Name,
+                        ReadOnly = attr[0].ReadOnly
                     };
                     BindingOperations.SetBinding(property, PropertyInfo.ValueProperty, bind);
 

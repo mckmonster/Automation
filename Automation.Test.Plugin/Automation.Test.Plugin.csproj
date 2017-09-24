@@ -66,8 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Composite.cs" />
+    <Compile Include="Grouping.cs" />
     <Compile Include="HoudiniJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoadObjectsScatter.cs" />
     <Compile Include="RockDeformation.cs" />
     <Compile Include="SetSelection.cs" />
     <Compile Include="UbuildJob.cs" />

@@ -17,5 +17,7 @@ namespace GraphX_test
             get => GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
         }
+
+        public bool ReadOnly { get; set; } = false;
     }
 }

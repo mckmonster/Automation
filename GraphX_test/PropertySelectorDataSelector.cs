@@ -12,11 +12,16 @@ namespace GraphX_test
     {
         public DataTemplate DefaultDataTemplate { get; set; }
         public DataTemplate BoolDataTemplate { get; set; }
+        public DataTemplate ReadOnlyTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item is PropertyInfo propInfo)
             {
+                if (propInfo.ReadOnly)
+                {
+                    return ReadOnlyTemplate;
+                }
                 if (propInfo.Value is bool)
                 {
                     return BoolDataTemplate;
