@@ -36,20 +36,7 @@ namespace GraphX_test
 
             joblist.ItemsSource = JobFactory.AvailableTypes();
         }
-
-        private bool IsJobType(Type type)
-        {
-            if (type == null)
-            {
-                return false;
-            }
-            if (type == typeof(Job))
-            {
-                return true;
-            }
-            return IsJobType(type.BaseType);
-        }
-
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;

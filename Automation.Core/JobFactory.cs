@@ -27,9 +27,25 @@ namespace Automation.Core
                     continue;
                 }
 
-                list.Add(type);
+                if (IsJobType(type))
+                {
+                    list.Add(type);
+                }
             }
             return list;
+        }
+
+        private static bool IsJobType(Type type)
+        {
+            if (type == null)
+            {
+                return false;
+            }
+            if (type == typeof(Job))
+            {
+                return true;
+            }
+            return IsJobType(type.BaseType);
         }
     }
 }
