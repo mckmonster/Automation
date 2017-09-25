@@ -84,6 +84,7 @@ namespace Automation.App
         }
 
         private bool edit = false;
+        private bool propagate = false;
         private VertexControl control = null;
         private void MyArea_VertexSelected(object sender, GraphX.Controls.Models.VertexSelectedEventArgs args)
         {
@@ -101,6 +102,13 @@ namespace Automation.App
                     }
                 }
            }
+           else if (propagate)
+            {
+                if (args.MouseArgs.LeftButton == MouseButtonState.Pressed)
+                {
+                    myArea.LogicCore.Graph.PropagateNodeProperty(args.VertexControl.Vertex as Job);
+                }
+            }
         }
 
         private void MainWindow_KeyUp(object sender, KeyEventArgs e)
@@ -110,6 +118,10 @@ namespace Automation.App
                 edit = false;
                 control = null;
             }
+            else if (e.Key == Key.RightCtrl)
+            {
+                propagate = false;
+            }
         }
 
         
@@ -118,6 +130,10 @@ namespace Automation.App
             if (e.Key == Key.LeftCtrl)
             {
                 edit = true;
+            }
+            else if (e.Key == Key.RightCtrl)
+            {
+                propagate = true;
             }
         }
 

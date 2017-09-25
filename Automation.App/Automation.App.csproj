@@ -87,6 +87,7 @@
     <Compile Include="ChooseJobType.xaml.cs">
       <DependentUpon>ChooseJobType.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GraphPropagate.cs" />
     <Compile Include="JobStateToColorConverter.cs" />
     <Compile Include="MyArea.cs" />
     <Compile Include="PropertySelectorDataSelector.cs" />

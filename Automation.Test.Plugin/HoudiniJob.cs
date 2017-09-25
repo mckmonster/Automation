@@ -50,13 +50,13 @@ namespace Automation.Test.Plugin
         public bool NEEDS_SCIMITAR { get; set; }
         
         [Editable]
-        public string CodeVersionId { get; set; }
+        public int CodeVersionId { get; set; }
 
         [Editable]
-        public string PCCodeVersionId { get; set; }
+        public int PCCodeVersionId { get; set; }
 
         [Editable]
-        public string BigFileCodeVersionId { get; set; }
+        public int BigFileCodeVersionId { get; set; }
 
         [Editable]
         public string MapName { get; set; }

@@ -49,6 +49,10 @@ namespace Automation.Core
 
         protected abstract void Execute();
 
+        public void RaisePropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         internal void RegisterFinished(Job vertex)
         {

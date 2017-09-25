@@ -66,11 +66,7 @@ namespace Automation.Core
             }
         }
 
-        public static void PropagateNodeProperty(this MyGraph graph, Job node)
-        {
-            //TODO Add code to propagate Property to node
-            throw new NotImplementedException();
-        }
+
 
         public static void DuplicateNodes(this MyGraph graph, List<Job> nodes)
         {
