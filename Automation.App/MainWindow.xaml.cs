@@ -118,7 +118,7 @@ namespace Automation.App
                 edit = false;
                 control = null;
             }
-            else if (e.Key == Key.P)
+            else if (e.Key == Key.RightCtrl)
             {
                 propagate = false;
             }
@@ -131,7 +131,7 @@ namespace Automation.App
             {
                 edit = true;
             }
-            else if (e.Key == Key.P)
+            else if (e.Key == Key.RightCtrl)
             {
                 propagate = true;
             }
