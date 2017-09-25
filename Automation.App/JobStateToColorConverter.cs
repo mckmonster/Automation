@@ -8,7 +8,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Automation.Core;
 
-namespace GraphX_test
+namespace Automation.App
 {
     [ValueConversion(typeof(JobState), typeof(Brush))]
     public class JobStateToColorConverter : IValueConverter

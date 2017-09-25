@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Automation.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace GraphX_test
+namespace Automation.App
 {
     public class PropertyDataTemplateSelector : DataTemplateSelector
     {

@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Automation.Core;
 
-namespace GraphX_test
+namespace Automation.App
 {
     /// <summary>
     /// Logique d'interaction pour ChooseJobType.xaml

@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GraphX_test
+namespace Automation.App
 {
     /// <summary>
     /// Logique d'interaction pour MyVertexControl.xaml

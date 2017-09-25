@@ -1,7 +1,7 @@
-﻿<Application x:Class="GraphX_test.App"
+﻿<Application x:Class="Automation.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GraphX_test"
+             xmlns:local="clr-namespace:Automation.App"
              xmlns:glx="http://schemas.panthernet.ru/graphx/"
              StartupUri="MainWindow.xaml">
     <Application.Resources>

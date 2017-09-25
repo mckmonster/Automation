@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace GraphX_test
+namespace Automation.App
 {
     /// <summary>
     /// Logique d'interaction pour App.xaml

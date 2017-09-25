@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphX_test", "GraphX_test\GraphX_test.csproj", "{5FD497FA-59CB-46A9-9289-F2B26603FD0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.App", "Automation.App\Automation.App.csproj", "{5FD497FA-59CB-46A9-9289-F2B26603FD0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automation.Core", "Automation.Core\Automation.Core.csproj", "{4580885E-B4C1-4424-9146-EEF64D97159E}"
 EndProject

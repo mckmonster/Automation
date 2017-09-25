@@ -1,7 +1,7 @@
 ﻿using GraphX.PCL.Logic.Models;
 using Automation.Core;
 
-namespace GraphX_test
+namespace Automation.App
 {
     public class MyGXLogicCore : GXLogicCore<Job, MyEdge, MyGraph>
     {

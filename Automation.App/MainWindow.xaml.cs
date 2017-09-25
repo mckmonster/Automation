@@ -24,7 +24,7 @@ using Automation.Core;
 using Automation.Test.Plugin;
 using Microsoft.Win32;
 
-namespace GraphX_test
+namespace Automation.App
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml

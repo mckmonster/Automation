@@ -5,7 +5,7 @@ using System.Windows.Input;
 using GraphX.Controls;
 using Automation.Core;
 
-namespace GraphX_test
+namespace Automation.App
 {
     public class MyArea : GraphArea<Job, MyEdge, MyGraph>
     {

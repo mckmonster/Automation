@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GraphX_test
+namespace Automation.Core
 {
     public class PropertyInfo : DependencyObject
     {
