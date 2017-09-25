@@ -48,7 +48,8 @@ namespace Automation.App
             MouseDown += MainWindow_MouseDown;
             myArea.VertexSelected += MyArea_VertexSelected;
             myArea.EdgeSelected += MyArea_EdgeSelected;
-                
+
+            GraphExecute.OnFinished += GraphExecute_OnFinished;
         }
 
         private void MainWindow_MouseDown(object sender, MouseButtonEventArgs e)
@@ -146,12 +147,23 @@ namespace Automation.App
 
         private void Execute_Click(object sender, RoutedEventArgs e)
         {
-            GraphExecute.Execute(myArea.LogicCore.Graph);
+            myArea.LogicCore.Graph.Execute();
+
+        }
+
+        private void GraphExecute_OnFinished()
+        {
+            MessageBox.Show("Execution finished");
         }
 
         private void Retry_Click(object sender, RoutedEventArgs e)
         {
-            GraphExecute.Execute(myArea.LogicCore.Graph, true);
+            myArea.LogicCore.Graph.Execute(true);
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            myArea.LogicCore.Graph.Cancel();
         }
     }
 }

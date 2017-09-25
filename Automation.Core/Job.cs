@@ -18,7 +18,8 @@ namespace Automation.Core
         public event PropertyChangedEventHandler PropertyChanged;
 
         private int _nbPreviousJob;
-        private bool _PreviousFailed = false;
+        private bool _PreviousStopped = false;
+        internal bool Canceled { get; set; }
 
         private JobState _state = JobState.NONE;
         private readonly int NBRETRYMAX = 3;
@@ -51,8 +52,9 @@ namespace Automation.Core
 
         internal void RegisterFinished(Job vertex)
         {
+            Canceled = false;
             _nbPreviousJob++;
-            _PreviousFailed = false;
+            _PreviousStopped = false;
             _log.Debug($"Register {_nbPreviousJob} {Name}, link on {vertex.Name}");
             vertex.OnFinished += PreviousJob_OnFinished;
         }
@@ -60,17 +62,18 @@ namespace Automation.Core
         private void PreviousJob_OnFinished(Job _job)
         {
             _nbPreviousJob--;
+ 
+            _job.OnFinished -= PreviousJob_OnFinished;
+
+            _log.Debug($"{Name} to finished {_nbPreviousJob}");
             if (_job.State != JobState.SUCCEED)
             {
                 _log.Debug($"{_job.Name} is failed stop {Name}");
-                _PreviousFailed = true;
+                _PreviousStopped = true;
             }
-
-            _job.OnFinished -= PreviousJob_OnFinished;
-            _log.Debug($"{Name} to finished {_nbPreviousJob}");
             if (_nbPreviousJob == 0)
             {
-                if (!_PreviousFailed)
+                if (!_PreviousStopped && !Canceled)
                 {
                     Launch();
                 }
@@ -105,7 +108,11 @@ namespace Automation.Core
 
                     Execute();
 
-                    if (State == JobState.FAILED)
+                    if (Canceled)
+                    {
+                        break;
+                    }
+                    else if (State == JobState.FAILED)
                     {
                         _nbRetry++;
                         _log.Debug($"Retry {Name} {_nbRetry} time(s)");
@@ -122,6 +129,12 @@ namespace Automation.Core
 
                 Finish();
             });
+        }
+
+        internal void Cancel()
+        {
+            Canceled = true;            
+            Finish();
         }
 
         private void Start()

@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace Automation.Core
 {
-    public class GraphExecute
+    public static class GraphExecute
     {
-        public static void Execute(MyGraph graph, bool _retry = false)
+        private static bool m_launched = false;
+
+        public static event Action OnFinished;
+
+        public static void Execute(this MyGraph graph, bool _retry = false)
         {
+            _nbVertices = graph.Vertices.Count();
+            _nbVerticesStopped = 0;
+            m_launched = true;
             foreach (var vertex in graph.Vertices)
             {
                 if (!_retry)
@@ -21,7 +28,8 @@ namespace Automation.Core
                 {
                     outEdge.Target.RegisterFinished(vertex);
                 }
-              
+
+                vertex.OnFinished += Vertex_OnFinished;
             }
 
             foreach (var vertex in graph.Vertices)
@@ -31,6 +39,43 @@ namespace Automation.Core
                     vertex.Launch();
                 }
             }
+        }
+
+        private static int _nbVerticesStopped = 0;
+        private static int _nbVertices = 0;
+        private static void Vertex_OnFinished(Job obj)
+        {
+            _nbVerticesStopped++;
+            obj.OnFinished -= Vertex_OnFinished;
+            m_launched = _nbVerticesStopped != _nbVertices;
+            if (!m_launched)
+            {
+                log4net.LogManager.GetLogger("Automation.Core").Info("Graph execution finished");
+                OnFinished?.Invoke();
+            }
+        }
+
+        public static void Cancel(this MyGraph graph)
+        {
+            if (m_launched)
+            {
+                foreach (var vertex in graph.Vertices)
+                {
+                    vertex.Cancel();
+                }
+            }
+        }
+
+        public static void PropagateNodeProperty(this MyGraph graph, Job node)
+        {
+            //TODO Add code to propagate Property to node
+            throw new NotImplementedException();
+        }
+
+        public static void DuplicateNodes(this MyGraph graph, List<Job> nodes)
+        {
+            //TODO Add code to duplicate nodes
+            throw new NotImplementedException();
         }
     }
 }
