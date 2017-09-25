@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Automation.App
 {
     public static class GraphPropagate
     {
+        private static int propagateInProgress;
         public static void PropagateNodeProperty(this MyGraph graph, Job node)
         {
+            propagateInProgress++;
             foreach (var edge in graph.OutEdges(node))
             {
                 var target = edge.Target;
@@ -36,6 +39,11 @@ namespace Automation.App
                 }
 
                 graph.PropagateNodeProperty(target);
+            }
+            propagateInProgress--;
+            if (propagateInProgress == 0)
+            {
+                MessageBox.Show("Propagate Finished");
             }
         }
     }
