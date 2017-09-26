@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MyGraph>
+  <Job id="0" type="Automation.Test.Plugin.SetSelection"><SetSelection>
+  <JobName>060-SelectionSets.hip</JobName>
+  <WorldName />
+  <State>SUCCEED</State>
+  <Name>SetSelection</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>0</ID>
+</SetSelection></Job>
+  <Job id="1" type="Automation.Test.Plugin.Composite"><Composite>
+  <JobName>410-Compisite.hip</JobName>
+  <WorldName />
+  <Frames />
+  <JobCount>0</JobCount>
+  <State>SUCCEED</State>
+  <Name>Composite</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>1</ID>
+</Composite></Job>
+  <Job id="2" type="Automation.Test.Plugin.TreeSplines"><TreeSplines>
+  <JobName>250-TreeSplines.hip</JobName>
+  <WorldName />
+  <State>SUCCEED</State>
+  <Name>TreeSplines</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>2</ID>
+</TreeSplines></Job>
+  <Job id="3" type="Automation.Test.Plugin.RockAssign"><RockAssign>
+  <JobName>130-RockAssign.hip</JobName>
+  <WorldName />
+  <State>SUCCEED</State>
+  <Name>RockAssign</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>3</ID>
+</RockAssign></Job>
+  <Job id="4" type="Automation.Test.Plugin.TreeAssign"><TreeAssign>
+  <JobName>240-TreeAssign.hip</JobName>
+  <WorldName />
+  <State>SUCCEED</State>
+  <Name>TreeAssign</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>4</ID>
+</TreeAssign></Job>
+  <Job id="5" type="Automation.Test.Plugin.RockAssign"><RockAssign>
+  <JobName>130-RockAssign.hip</JobName>
+  <WorldName />
+  <State>SUCCEED</State>
+  <Name>RockAssign</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>5</ID>
+</RockAssign></Job>
+  <Job id="6" type="Automation.Test.Plugin.CliffRockSplines"><CliffRockSplines>
+  <JobName>127-CliffRockSplines.hip</JobName>
+  <WorldName />
+  <State>SUCCEED</State>
+  <Name>CliffRockSplines</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>6</ID>
+</CliffRockSplines></Job>
+  <Job id="7" type="Automation.Test.Plugin.RockDeformation"><RockDeformation>
+  <JobName>152-RockDeformation.hip</JobName>
+  <WorldName />
+  <Frames />
+  <JobCount>0</JobCount>
+  <State>NONE</State>
+  <Name>RockDeform</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>7</ID>
+</RockDeformation></Job>
+  <Job id="8" type="Automation.Test.Plugin.Composite2"><Composite2>
+  <JobName>411-Composite-02.hip</JobName>
+  <WorldName />
+  <Frames />
+  <JobCount>0</JobCount>
+  <User />
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
+  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
+  <State>NONE</State>
+  <Name>Composite-02</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>8</ID>
+</Composite2></Job>
+  <Job id="9" type="Automation.Test.Plugin.RoadObjectsScatter"><RoadObjectsScatter>
+  <JobName>415-RoadObjectsScatter.hip</JobName>
+  <WorldName />
+  <Frames />
+  <JobCount>0</JobCount>
+  <User />
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
+  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
+  <State>NONE</State>
+  <Name>RoadObjectsScatter</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>9</ID>
+</RoadObjectsScatter></Job>
+  <Job id="10" type="Automation.Test.Plugin.Grouping"><Grouping>
+  <JobName>420-Grouping.hip</JobName>
+  <WorldName />
+  <User />
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
+  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
+  <State>NONE</State>
+  <Name>Grouping</Name>
+  <Angle>0</Angle>
+  <GroupId>0</GroupId>
+  <SkipProcessing>Default</SkipProcessing>
+  <ID>10</ID>
+</Grouping></Job>
+  <MyEdge id="0" source="0" target="1" />
+  <MyEdge id="1" source="0" target="3" />
+  <MyEdge id="2" source="0" target="4" />
+  <MyEdge id="3" source="1" target="8" />
+  <MyEdge id="4" source="2" target="7" />
+  <MyEdge id="5" source="3" target="2" />
+  <MyEdge id="6" source="3" target="5" />
+  <MyEdge id="7" source="3" target="6" />
+  <MyEdge id="8" source="4" target="2" />
+  <MyEdge id="9" source="4" target="5" />
+  <MyEdge id="10" source="4" target="6" />
+  <MyEdge id="11" source="5" target="7" />
+  <MyEdge id="12" source="6" target="7" />
+  <MyEdge id="13" source="7" target="8" />
+  <MyEdge id="14" source="8" target="9" />
+  <MyEdge id="15" source="9" target="10" />
+</MyGraph>
