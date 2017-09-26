@@ -23,7 +23,11 @@
                 <Button Click="Cancel_Click">Cancel</Button>
             </ToolBar>
         </ToolBarTray>
-        <graphx:ZoomControl Grid.Row="1" Name="zoomCtrl">
+        <graphx:ZoomControl Grid.Row="1" Name="zoomCtrl" MouseRightButtonDown="ZoomCtrl_OnMouseRightButtonDown">
+            <graphx:ZoomControl.ContextMenu>
+                <ContextMenu>
+                </ContextMenu>
+            </graphx:ZoomControl.ContextMenu>
             <local:MyArea x:Name="myArea"/>
         </graphx:ZoomControl>
     </Grid>

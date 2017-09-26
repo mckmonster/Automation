@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using GraphX.Controls;
@@ -42,11 +43,6 @@ namespace Automation.App
             var ec = new EdgeControl(vc1, vc2, e);
             InsertEdge(e, ec); //inserts edge into the start of the children list to draw it below vertices
         }
-
-        protected override void OnPreviewKeyDown(KeyEventArgs e)
-        {
-            base.OnPreviewKeyDown(e);
-            e.Handled = false;
-        }
     }
 }
+

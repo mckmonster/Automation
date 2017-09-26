@@ -3,6 +3,7 @@ using GraphX.PCL.Common.Enums;
 using GraphX.PCL.Common.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -43,6 +44,21 @@ namespace Automation.App
             //CreateRandomGraph();
             //myArea.GenerateGraph();
             //zoomCtrl.ZoomToFill(); // Zoome au mieux
+            zoomCtrl.IsAnimationEnabled = false;
+
+            if (zoomCtrl.ContextMenu != null)
+            {
+                foreach (var type in JobFactory.AvailableTypes())
+                {
+                    var item = new MenuItem()
+                    {
+                        Header = type.Name,
+                        Tag = type
+                    };
+                    item.Click += MenuItem_OnClick;
+                    zoomCtrl.ContextMenu.Items.Add(item);
+                }
+            }
 
             myArea.VertexClicked += MyAreaOnVertexClicked;
             myArea.EdgeSelected += MyArea_EdgeSelected;
@@ -64,6 +80,7 @@ namespace Automation.App
                     else if (!control.Equals(args.Control))
                     {
                         myArea.AddLink(control.Vertex as Job, args.Control.Vertex as Job);
+                        control = null;
                     }
                 }
             }
@@ -77,23 +94,6 @@ namespace Automation.App
 
             //MessageBox.Show($"{(args.Control.Vertex as Job).Name} {args.MouseArgs.ChangedButton} {args.Modifiers}");
         }
-
-        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
-        {
-            var chooses = new ChooseJobType();
-            //TODO do a better stuf to open the window under mouse
-            var pos = Mouse.GetPosition(this);
-            chooses.Left = pos.X;
-            chooses.Top = pos.Y;
-
-            var result = chooses.ShowDialog();
-            if (result.HasValue & result.Value)
-            {
-                var vertex = chooses.SelectedJob;
-                myArea.AddJob(vertex, pos);
-            }
-        }
-        
 
         private void MyArea_EdgeSelected(object sender, GraphX.Controls.Models.EdgeSelectedEventArgs args)
         {
@@ -150,6 +150,23 @@ namespace Automation.App
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             myArea.LogicCore.Graph.Cancel();
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var pos = Mouse.GetPosition(this);
+            var menuitem = sender as MenuItem;
+            if (menuitem != null)
+            {
+                var job = JobFactory.CreateJob((menuitem.Tag as Type)?.FullName);
+                myArea.AddJob(job, pos);
+            }
+        }
+
+        private void ZoomCtrl_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            if (zoomCtrl.ContextMenu != null) zoomCtrl.ContextMenu.IsOpen = true;
         }
     }
 }
