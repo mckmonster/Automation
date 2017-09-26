@@ -66,6 +66,8 @@ namespace Automation.App
             GraphExecute.OnFinished += GraphExecute_OnFinished;
         }
 
+        private List<Job> selectedVertices = new List<Job>();
+
         private void MyArea_VertexSelected(object sender, VertexSelectedEventArgs args)
         {
             if (args.MouseArgs.ChangedButton == MouseButton.Right)
@@ -82,6 +84,27 @@ namespace Automation.App
                     args.VertexControl.ContextMenu.Items.Add(propagate);
                 }
                 args.VertexControl.ContextMenu.IsOpen = true;
+            }
+            else if (args.MouseArgs.ChangedButton == MouseButton.Left)
+            {
+                if (args.Modifiers == ModifierKeys.Control)
+                {
+                    var job = args.VertexControl.Vertex as Job;
+                    var jobselected = selectedVertices.Contains(job);
+
+                    if (jobselected)
+                    {
+                        job.Selected = false;
+                        job.RaisePropertyChanged("Selected");
+                        selectedVertices.Remove(job);
+                    }
+                    else
+                    {
+                        job.Selected = true;
+                        job.RaisePropertyChanged("Selected");
+                        selectedVertices.Add(job);
+                    }
+                }
             }
         }
 

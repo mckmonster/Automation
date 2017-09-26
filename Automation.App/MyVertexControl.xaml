@@ -52,7 +52,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Border Background="{Binding State, Converter={StaticResource JobStateToColor}}" CornerRadius="10,10,0,0"/>
-            <Expander Grid.Row="1" Margin="2" IsExpanded="True"  Header="{Binding Name}">
+            <Expander Grid.Row="1" Margin="2" IsExpanded="True">
+                <Expander.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Selected}"/>
+                        <TextBlock Text="{Binding Name}"/>                        
+                    </StackPanel>
+                </Expander.Header>
                 <ItemsControl x:Name="properties" ItemTemplateSelector="{StaticResource PropertyTemplateSelector}"/>
             </Expander>
         </Grid>

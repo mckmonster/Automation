@@ -46,6 +46,13 @@ namespace Automation.Core
             private set;
         }
 
+        [YAXDontSerialize]
+        public bool Selected
+        {
+            get;
+            set;
+        }
+
         public Job(string name)
         {
             Name = name;
