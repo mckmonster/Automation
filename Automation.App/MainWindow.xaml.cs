@@ -60,10 +60,29 @@ namespace Automation.App
                 }
             }
 
-            myArea.VertexClicked += MyAreaOnVertexClicked;
+            myArea.VertexSelected += MyArea_VertexSelected;
             myArea.EdgeSelected += MyArea_EdgeSelected;
 
             GraphExecute.OnFinished += GraphExecute_OnFinished;
+        }
+
+        private void MyArea_VertexSelected(object sender, VertexSelectedEventArgs args)
+        {
+            if (args.MouseArgs.ChangedButton == MouseButton.Right)
+            {
+                if (args.VertexControl.ContextMenu == null)
+                {
+                    args.VertexControl.ContextMenu = new ContextMenu();
+                    var propagate = new MenuItem()
+                    {
+                        Header = "Propagate",
+                        DataContext = args.VertexControl.DataContext
+                    };
+                    propagate.Click += Propagate_Click;
+                    args.VertexControl.ContextMenu.Items.Add(propagate);
+                }
+                args.VertexControl.ContextMenu.IsOpen = true;
+            }
         }
 
         private VertexControl control = null;
@@ -84,15 +103,11 @@ namespace Automation.App
                     }
                 }
             }
-            else if (args.MouseArgs.ChangedButton == MouseButton.Right)
-            {
-                if (args.Modifiers == ModifierKeys.Control)
-                {
-                    myArea.LogicCore.Graph.PropagateNodeProperty(args.Control.Vertex as Job);
-                }
-            }
+        }
 
-            //MessageBox.Show($"{(args.Control.Vertex as Job).Name} {args.MouseArgs.ChangedButton} {args.Modifiers}");
+        private void Propagate_Click(object sender, RoutedEventArgs e)
+        {
+            myArea.LogicCore.Graph.PropagateNodeProperty((sender as MenuItem).DataContext as Job);
         }
 
         private void MyArea_EdgeSelected(object sender, GraphX.Controls.Models.EdgeSelectedEventArgs args)
@@ -103,9 +118,7 @@ namespace Automation.App
                 myArea.LogicCore.Graph.RemoveEdge(edge);
                 myArea.RemoveEdge(edge);
             }
-        }
-
-        
+        }        
         
         private void Save_Click(object sender, RoutedEventArgs e)
         {
