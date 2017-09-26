@@ -3,7 +3,7 @@ using Automation.Core;
 
 namespace Automation.Test.Plugin
 {
-    public class RockDeformation : UbuildJob
+    public class TreeSplines : UbuildJob
     {
         [Editable(ReadOnly = true)]
         public string JobName { get; set; }
@@ -11,15 +11,9 @@ namespace Automation.Test.Plugin
         [Editable]
         public string WorldName { get; set; }
 
-        [Editable]
-        public string Frames { get; set; }
-
-        [Editable]
-        public int JobCount { get; set; }
-
-        public RockDeformation() : base("RockDeform")
+        public TreeSplines() : base("TreeSplines")
         {
-            JobName = "152-RockDeformation.hip";
+            JobName = "250-TreeSplines.hip";
         }
 
         protected override void Execute()

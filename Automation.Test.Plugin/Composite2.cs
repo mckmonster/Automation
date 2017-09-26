@@ -6,14 +6,16 @@ namespace Automation.Test.Plugin
     public class Composite2 : UbuildJob
     {
         [Editable(ReadOnly = true)]
-        public string JobName
-        {
-            get;
-            set;
-        }
+        public string JobName { get; set; }
 
         [Editable]
         public string WorldName { get; set; }
+
+        [Editable]
+        public string Frames { get; set; }
+
+        [Editable]
+        public int JobCount { get; set; }
 
         [Editable]
         public string User { get; set; }

@@ -17,6 +17,12 @@ namespace Automation.Test.Plugin
         public string WorldName { get; set; }
 
         [Editable]
+        public string Frames { get; set; }
+
+        [Editable]
+        public int JobCount { get; set; }
+
+        [Editable]
         public string User { get; set; }
 
         [Editable]
