@@ -7,7 +7,7 @@ using Automation.Core;
 
 namespace Automation.Test.Plugin
 {
-    public class SecondaryVegetation : UbuildJob
+    public class SecondaryVegetation : HoudiniJob
     {
         [Editable(ReadOnly = true)]
         public string JobName { get; set; }

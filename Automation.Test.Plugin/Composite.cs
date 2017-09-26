@@ -3,7 +3,7 @@ using Automation.Core;
 
 namespace Automation.Test.Plugin
 {
-    public class Composite : UbuildJob
+    public class Composite : HoudiniJob
     {
 
         [Editable(ReadOnly = true)]

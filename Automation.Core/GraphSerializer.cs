@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using YAXLib;
 
 namespace Automation.Core
 {
@@ -52,7 +53,7 @@ namespace Automation.Core
         {
             wr.WriteAttributeString("type", vr.GetType().FullName);
 
-            var serializer = new YAXLib.YAXSerializer(vr.GetType());
+            var serializer = new YAXLib.YAXSerializer(vr.GetType(), YAXSerializationOptions.DontSerializeNullObjects);
             var result = serializer.Serialize(vr);
             wr.WriteRaw(result);
         }
@@ -61,7 +62,7 @@ namespace Automation.Core
         {
             var typestring = rd.GetAttribute("type");
             var type = JobFactory.GetType(typestring);
-            var serializer = new YAXLib.YAXSerializer(type);
+            var serializer = new YAXLib.YAXSerializer(type, YAXSerializationOptions.DontSerializeNullObjects);
             var id = long.Parse(rd.GetAttribute("id"));
             var job = serializer.Deserialize(rd.ReadInnerXml()) as Job;
             job.ID = id;

@@ -3,7 +3,7 @@ using Automation.Core;
 
 namespace Automation.Test.Plugin
 {
-    public class RockSplines : UbuildJob
+    public class RockSplines : HoudiniJob
     {
         [Editable(ReadOnly = true)]
         public string JobName { get; set; }

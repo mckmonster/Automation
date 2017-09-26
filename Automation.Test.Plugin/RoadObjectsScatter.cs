@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace Automation.Test.Plugin
 {
-    public class RoadObjectsScatter : UbuildJob
+    public class RoadObjectsScatter : HoudiniJob
     {
         [Editable(ReadOnly = true)]
         public string JobName { get; set; }
@@ -16,23 +16,7 @@ namespace Automation.Test.Plugin
         [Editable]
         public string WorldName { get; set; }
 
-        [Editable]
-        public string Frames { get; set; }
 
-        [Editable]
-        public int JobCount { get; set; }
-
-        [Editable]
-        public string User { get; set; }
-
-        [Editable]
-        public int CodeVersionId { get; set; }
-
-        [Editable]
-        public int BigFileVersionId { get; set; }
-
-        [Editable]
-        public int Data { get; set; }
 
         public bool NEEDS_TERRAIN { get; set; }
 

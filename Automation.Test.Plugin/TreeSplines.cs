@@ -3,7 +3,7 @@ using Automation.Core;
 
 namespace Automation.Test.Plugin
 {
-    public class TreeSplines : UbuildJob
+    public class TreeSplines : HoudiniJob
     {
         [Editable(ReadOnly = true)]
         public string JobName { get; set; }

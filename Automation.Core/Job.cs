@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using log4net;
 using System.Xml;
+using YAXLib;
 
 namespace Automation.Core
 {
@@ -24,6 +25,7 @@ namespace Automation.Core
         private JobState _state = JobState.NONE;
         private readonly int NBRETRYMAX = 3;
 
+        [YAXDontSerialize]
         public JobState State
         {
             get { return _state; }
@@ -36,6 +38,8 @@ namespace Automation.Core
                 }
             }
         }
+
+        [YAXDontSerialize]
         public string Name
         {
             get;
