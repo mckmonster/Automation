@@ -26,7 +26,7 @@ namespace Automation.Core
 
         public JobState State
         {
-            get => _state;
+            get { return _state; }
             set
             {
                 if (_state != value)

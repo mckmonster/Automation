@@ -15,8 +15,10 @@ namespace Automation.App
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is JobState state)
+            if (value != null)
             {
+                var state = (JobState)value;
+
                 var color = Colors.Black;
                 switch (state)
                 {
@@ -37,6 +39,7 @@ namespace Automation.App
                 }
 
                 return new SolidColorBrush(color);
+
             }
 
             throw new NotImplementedException();

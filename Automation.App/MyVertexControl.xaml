@@ -6,6 +6,11 @@
              xmlns:local="clr-namespace:Automation.App"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Test"/>
+        </ContextMenu>
+    </UserControl.ContextMenu>
     <UserControl.Resources>
         <local:JobStateToColorConverter x:Key="JobStateToColor"/>
         <DataTemplate x:Key="DefaultPropertyTemplate">

@@ -17,7 +17,8 @@ namespace Automation.App
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is PropertyInfo propInfo)
+            var propInfo = item as PropertyInfo;
+            if (propInfo != null)
             {
                 if (propInfo.ReadOnly)
                 {

@@ -22,6 +22,7 @@ using System.Xml;
 using QuickGraph.Algorithms;
 using Automation.Core;
 using Automation.Test.Plugin;
+using GraphX.Controls.Models;
 using Microsoft.Win32;
 
 namespace Automation.App
@@ -43,35 +44,56 @@ namespace Automation.App
             //myArea.GenerateGraph();
             //zoomCtrl.ZoomToFill(); // Zoome au mieux
 
-            KeyDown += MainWindow_KeyDown;
-            KeyUp += MainWindow_KeyUp;
-            MouseDown += MainWindow_MouseDown;
-            myArea.VertexSelected += MyArea_VertexSelected;
+            myArea.VertexClicked += MyAreaOnVertexClicked;
             myArea.EdgeSelected += MyArea_EdgeSelected;
 
             GraphExecute.OnFinished += GraphExecute_OnFinished;
         }
 
-        private void MainWindow_MouseDown(object sender, MouseButtonEventArgs e)
+        private VertexControl control = null;
+        private void MyAreaOnVertexClicked(object sender, VertexClickedEventArgs args)
         {
-            if (e.LeftButton == MouseButtonState.Pressed && edit)
+            if (args.MouseArgs.ChangedButton == MouseButton.Left)
             {
-                edit = false;
-
-                var chooses = new ChooseJobType();
-                //TODO do a better stuf to open the window under mouse
-                var pos = Mouse.GetPosition(this);
-                chooses.Left = pos.X; 
-                chooses.Top = pos.Y;
-
-                var result = chooses.ShowDialog();
-                if (result.HasValue & result.Value)
+                if (args.Modifiers == ModifierKeys.Control)
                 {
-                    var vertex = chooses.SelectedJob;
-                    myArea.AddJob(vertex, pos);
+                    if (control == null)
+                    {
+                        control = args.Control;
+                    }
+                    else if (!control.Equals(args.Control))
+                    {
+                        myArea.AddLink(control.Vertex as Job, args.Control.Vertex as Job);
+                    }
                 }
             }
+            else if (args.MouseArgs.ChangedButton == MouseButton.Right)
+            {
+                if (args.Modifiers == ModifierKeys.Control)
+                {
+                    myArea.LogicCore.Graph.PropagateNodeProperty(args.Control.Vertex as Job);
+                }
+            }
+
+            //MessageBox.Show($"{(args.Control.Vertex as Job).Name} {args.MouseArgs.ChangedButton} {args.Modifiers}");
         }
+
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        {
+            var chooses = new ChooseJobType();
+            //TODO do a better stuf to open the window under mouse
+            var pos = Mouse.GetPosition(this);
+            chooses.Left = pos.X;
+            chooses.Top = pos.Y;
+
+            var result = chooses.ShowDialog();
+            if (result.HasValue & result.Value)
+            {
+                var vertex = chooses.SelectedJob;
+                myArea.AddJob(vertex, pos);
+            }
+        }
+        
 
         private void MyArea_EdgeSelected(object sender, GraphX.Controls.Models.EdgeSelectedEventArgs args)
         {
@@ -83,60 +105,8 @@ namespace Automation.App
             }
         }
 
-        private bool edit = false;
-        private bool propagate = false;
-        private VertexControl control = null;
-        private void MyArea_VertexSelected(object sender, GraphX.Controls.Models.VertexSelectedEventArgs args)
-        {
-           if (edit)
-           {
-                if (args.MouseArgs.LeftButton == MouseButtonState.Pressed)
-                {
-                    if (control == null)
-                    {
-                        control = args.VertexControl;
-                    }
-                    else
-                    {
-                        myArea.AddLink(control.Vertex as Job, args.VertexControl.Vertex as Job);
-                    }
-                }
-           }
-           else if (propagate)
-            {
-                if (args.MouseArgs.LeftButton == MouseButtonState.Pressed)
-                {
-                    myArea.LogicCore.Graph.PropagateNodeProperty(args.VertexControl.Vertex as Job);
-                }
-            }
-        }
-
-        private void MainWindow_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.LeftCtrl)
-            {
-                edit = false;
-                control = null;
-            }
-            else if (e.Key == Key.RightCtrl)
-            {
-                propagate = false;
-            }
-        }
-
         
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.LeftCtrl)
-            {
-                edit = true;
-            }
-            else if (e.Key == Key.RightCtrl)
-            {
-                propagate = true;
-            }
-        }
-
+        
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new SaveFileDialog { Filter = "All files|*.*", Title = "Select layout file name", FileName = "laytest.xml" };

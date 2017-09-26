@@ -9,13 +9,13 @@ namespace Automation.Core
 
         public string Name
         {
-            get => (string)GetValue(NameProperty);
-            set => SetValue(NameProperty, value);
+            get { return (string) GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
         }
         public object Value
         {
-            get => GetValue(ValueProperty);
-            set => SetValue(ValueProperty, value);
+            get { return GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
         }
 
         public bool ReadOnly { get; set; } = false;

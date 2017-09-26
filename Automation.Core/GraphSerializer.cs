@@ -66,6 +66,7 @@ namespace Automation.Core
             var job = serializer.Deserialize(rd.ReadInnerXml()) as Job;
             job.ID = id;
             jobs.Add(job);
+            
             return job;
         }
     }

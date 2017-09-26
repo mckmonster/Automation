@@ -43,6 +43,10 @@ namespace Automation.App
             InsertEdge(e, ec); //inserts edge into the start of the children list to draw it below vertices
         }
 
-
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
+            e.Handled = false;
+        }
     }
 }
