@@ -22,7 +22,7 @@ namespace Automation.Test.Plugin
 
             Thread.Sleep(6000);
 
-            if (_rand.Next(100) < 50)
+            if (_rand.Next(100) < 20)
             {
                 State = JobState.FAILED;
             }

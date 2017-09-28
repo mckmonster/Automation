@@ -12,31 +12,57 @@ namespace Automation.App
     {
         public static void DuplicateNodes(this MyArea area, List<Job> nodes)
         {
+            Dictionary<Job, List<Job>> jobs = new Dictionary<Job, List<Job>>();
+
             var graph = area.LogicCore.Graph;
             foreach (var node in nodes)
             {
+                jobs.Add(node, new List<Job>());
+
                 var newnodes = node.Duplicate(3);
                 foreach (var newnode in newnodes)
                 {
                     area.AddJob(newnode);
-
-                    foreach (var inEdge in graph.InEdges(node))
-                    {
-                        if (!nodes.Contains(inEdge.Source))
-                        {
-                            area.AddLink(inEdge.Source, newnode);
-                        }
-                    }
-
-                    foreach (var outEdge in graph.OutEdges(node))
-                    {
-                        if (!nodes.Contains(outEdge.Target))
-                        {
-                            area.AddLink(newnode, outEdge.Target);
-                        }
-                    }
+                    jobs[node].Add(newnode);
                 }
             }
+
+            
+            foreach (var node in nodes)
+            {
+                int i = 0;
+                foreach (var newnode in jobs[node])
+                {
+                    foreach (var inedge in graph.InEdges(node))
+                    {
+                        if (!nodes.Contains(inedge.Source))
+                        {
+                            area.AddLink(inedge.Source, newnode);
+                        }
+                        else
+                        {
+                            var source = jobs[inedge.Source][i];
+                            area.AddLink(source, newnode);
+                        }
+                    }
+
+                    foreach (var outedge in graph.OutEdges(node))
+                    {
+                        if (!nodes.Contains(outedge.Target))
+                        {
+                            area.AddLink(newnode, outedge.Target);
+                        }
+                        else
+                        {
+                            var target = jobs[outedge.Target][i];
+                            area.AddLink(newnode, target);
+                        }
+                    }
+
+                    i++;
+                }
+            }
+
             area.GenerateGraph();
 
             MessageBox.Show("Duplication Finished");

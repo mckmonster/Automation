@@ -3,16 +3,10 @@ using System.Threading;
 
 namespace Automation.Test.Plugin
 {
-    public class Composite2 : HoudiniJob
+    public class Composite2 : HoudiniJobFrameable
     {
-        [Editable(ReadOnly = true)]
-        public string JobName { get; set; }
-
         [Editable]
         public string WorldName { get; set; }
-
-        [Editable]
-        public string Frames { get; set; }
 
         [Editable]
         public int JobCount { get; set; }

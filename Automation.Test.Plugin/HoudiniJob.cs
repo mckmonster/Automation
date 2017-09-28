@@ -8,8 +8,10 @@ using YAXLib;
 
 namespace Automation.Test.Plugin
 {
-    public class HoudiniJob : UbuildJob
+    public abstract class HoudiniJob : UbuildJob
     {
+        [Editable(ReadOnly = true)]
+        public string JobName { get; set; }
 
         [Editable]
         [YAXErrorIfMissed(YAXExceptionTypes.Ignore, DefaultValue = 0)]
@@ -30,6 +32,11 @@ namespace Automation.Test.Plugin
 
         public HoudiniJob(string name) : base(name)
         {
+        }
+
+        protected override void Cut(int _id, int _nbCut)
+        {
+            
         }
     }
 }

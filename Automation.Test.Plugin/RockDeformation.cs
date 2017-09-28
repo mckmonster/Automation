@@ -3,16 +3,10 @@ using Automation.Core;
 
 namespace Automation.Test.Plugin
 {
-    public class RockDeformation : HoudiniJob
+    public class RockDeformation : HoudiniJobFrameable
     {
-        [Editable(ReadOnly = true)]
-        public string JobName { get; set; }
-
         [Editable]
         public string WorldName { get; set; }
-
-        [Editable]
-        public string Frames { get; set; }
 
         [Editable]
         public int JobCount { get; set; }

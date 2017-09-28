@@ -5,9 +5,6 @@ namespace Automation.Test.Plugin
 {
     public class TreeSplines : HoudiniJob
     {
-        [Editable(ReadOnly = true)]
-        public string JobName { get; set; }
-
         [Editable]
         public string WorldName { get; set; }
 

@@ -57,6 +57,7 @@ namespace Automation.Core
         }
 
         protected abstract void Execute();
+        protected abstract void Cut(int _id, int _nbCut);
 
         public void RaisePropertyChanged(string name)
         {
@@ -167,12 +168,17 @@ namespace Automation.Core
         {
             var newjobs = new List<Job>();
 
+            Selected = false;
+
             for (var i = 0; i < nbtime; i++)
             {
                 var newjob = MemberwiseClone() as Job;
+                newjob.Cut(i+1,nbtime+1);
                 newjobs.Add(newjob);
             }
+            Cut(0, nbtime + 1);
+
             return newjobs;
         }
     }
-}
+};

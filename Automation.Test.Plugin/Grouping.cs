@@ -9,9 +9,6 @@ namespace Automation.Test.Plugin
 {
     public class Grouping : HoudiniJob
     {
-        [Editable(ReadOnly = true)]
-        public string JobName { get; set; }
-
         [Editable]
         public string WorldName { get; set; }
 
