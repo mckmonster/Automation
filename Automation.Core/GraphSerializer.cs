@@ -34,10 +34,11 @@ namespace Automation.Core
         private static List<Job> jobs = new List<Job>();
         public static MyGraph DeSerialize(Stream stream)
         {
+            MyGraph result;
             jobs.Clear();
             using (var reader = XmlReader.Create(stream))
             {
-                return reader.DeserializeFromXml<Job, MyEdge, MyGraph>("MyGraph", "Job", "MyEdge", "",
+                result = reader.DeserializeFromXml<Job, MyEdge, MyGraph>("MyGraph", "Job", "MyEdge", "",
                     rd => { return new MyGraph(); },
                     DeserializeNode,
                     rd =>
@@ -47,6 +48,8 @@ namespace Automation.Core
                         return new MyEdge(source, target);
                     });
             }
+            stream.Close();
+            return result;
         }
 
         private static void SerializeNode(XmlWriter wr, Job vr)
