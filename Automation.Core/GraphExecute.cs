@@ -68,10 +68,6 @@ namespace Automation.Core
 
 
 
-        public static void DuplicateNodes(this MyGraph graph, List<Job> nodes)
-        {
-            //TODO Add code to duplicate nodes
-            throw new NotImplementedException();
-        }
+
     }
 }

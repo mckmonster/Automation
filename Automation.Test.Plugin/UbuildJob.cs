@@ -18,7 +18,7 @@ namespace Automation.Test.Plugin
 
         protected override void Execute()
         {
-            _log.Info($"Execute {Name}");
+            Log.Info($"Execute {Name}");
 
             Thread.Sleep(6000);
 
