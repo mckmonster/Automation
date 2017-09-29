@@ -10,7 +10,7 @@ namespace Automation.App
 {
     public static class GraphDuplicateNode
     {
-        public static void DuplicateNodes(this MyArea area, List<Job> nodes)
+        public static void DuplicateNodes(this MyArea area, List<Job> nodes, int nbDuplicate)
         {
             Dictionary<Job, List<Job>> jobs = new Dictionary<Job, List<Job>>();
 
@@ -19,7 +19,7 @@ namespace Automation.App
             {
                 jobs.Add(node, new List<Job>());
 
-                var newnodes = node.Duplicate(3);
+                var newnodes = node.Duplicate(nbDuplicate);
                 foreach (var newnode in newnodes)
                 {
                     area.AddJob(newnode);
