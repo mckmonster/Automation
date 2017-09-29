@@ -2,21 +2,21 @@
 <MyGraph>
   <Job id="0" type="Automation.Test.Plugin.SetSelection"><SetSelection>
   <JobName>060-SelectionSets.hip</JobName>
-  <WorldName />
-  <State>SUCCEED</State>
-  <Name>SetSelection</Name>
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
   <ID>0</ID>
 </SetSelection></Job>
   <Job id="1" type="Automation.Test.Plugin.Composite"><Composite>
-  <JobName>410-Compisite.hip</JobName>
-  <WorldName />
-  <Frames />
   <JobCount>0</JobCount>
-  <State>SUCCEED</State>
-  <Name>Composite</Name>
+  <Frames>1-1024</Frames>
+  <JobName>410-Compisite.hip</JobName>
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
@@ -24,9 +24,9 @@
 </Composite></Job>
   <Job id="2" type="Automation.Test.Plugin.TreeSplines"><TreeSplines>
   <JobName>250-TreeSplines.hip</JobName>
-  <WorldName />
-  <State>SUCCEED</State>
-  <Name>TreeSplines</Name>
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
@@ -34,9 +34,9 @@
 </TreeSplines></Job>
   <Job id="3" type="Automation.Test.Plugin.RockAssign"><RockAssign>
   <JobName>130-RockAssign.hip</JobName>
-  <WorldName />
-  <State>SUCCEED</State>
-  <Name>RockAssign</Name>
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
@@ -44,9 +44,9 @@
 </RockAssign></Job>
   <Job id="4" type="Automation.Test.Plugin.TreeAssign"><TreeAssign>
   <JobName>240-TreeAssign.hip</JobName>
-  <WorldName />
-  <State>SUCCEED</State>
-  <Name>TreeAssign</Name>
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
@@ -54,9 +54,9 @@
 </TreeAssign></Job>
   <Job id="5" type="Automation.Test.Plugin.RockAssign"><RockAssign>
   <JobName>130-RockAssign.hip</JobName>
-  <WorldName />
-  <State>SUCCEED</State>
-  <Name>RockAssign</Name>
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
@@ -64,70 +64,56 @@
 </RockAssign></Job>
   <Job id="6" type="Automation.Test.Plugin.CliffRockSplines"><CliffRockSplines>
   <JobName>127-CliffRockSplines.hip</JobName>
-  <WorldName />
-  <State>SUCCEED</State>
-  <Name>CliffRockSplines</Name>
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
   <ID>6</ID>
 </CliffRockSplines></Job>
   <Job id="7" type="Automation.Test.Plugin.RockDeformation"><RockDeformation>
-  <JobName>152-RockDeformation.hip</JobName>
-  <WorldName />
-  <Frames />
   <JobCount>0</JobCount>
-  <State>NONE</State>
-  <Name>RockDeform</Name>
+  <Frames>1-1024</Frames>
+  <JobName>152-RockDeformation.hip</JobName>
+  <CodeVersionId>0</CodeVersionId>
+  <BigFileVersionId>0</BigFileVersionId>
+  <Data>0</Data>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
   <ID>7</ID>
 </RockDeformation></Job>
   <Job id="8" type="Automation.Test.Plugin.Composite2"><Composite2>
-  <JobName>411-Composite-02.hip</JobName>
-  <WorldName />
-  <Frames />
   <JobCount>0</JobCount>
-  <User />
+  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
+  <Frames>1-1024</Frames>
+  <JobName>411-Composite-02.hip</JobName>
   <CodeVersionId>0</CodeVersionId>
   <BigFileVersionId>0</BigFileVersionId>
   <Data>0</Data>
-  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
-  <State>NONE</State>
-  <Name>Composite-02</Name>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
   <ID>8</ID>
 </Composite2></Job>
   <Job id="9" type="Automation.Test.Plugin.RoadObjectsScatter"><RoadObjectsScatter>
+  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
   <JobName>415-RoadObjectsScatter.hip</JobName>
-  <WorldName />
-  <Frames />
-  <JobCount>0</JobCount>
-  <User />
   <CodeVersionId>0</CodeVersionId>
   <BigFileVersionId>0</BigFileVersionId>
   <Data>0</Data>
-  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
-  <State>NONE</State>
-  <Name>RoadObjectsScatter</Name>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>
   <ID>9</ID>
 </RoadObjectsScatter></Job>
   <Job id="10" type="Automation.Test.Plugin.Grouping"><Grouping>
+  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
   <JobName>420-Grouping.hip</JobName>
-  <WorldName />
-  <User />
   <CodeVersionId>0</CodeVersionId>
   <BigFileVersionId>0</BigFileVersionId>
   <Data>0</Data>
-  <NEEDS_TERRAIN>True</NEEDS_TERRAIN>
-  <State>NONE</State>
-  <Name>Grouping</Name>
   <Angle>0</Angle>
   <GroupId>0</GroupId>
   <SkipProcessing>Default</SkipProcessing>

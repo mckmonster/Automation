@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HoudiniJobFrameable.cs" />
     <Compile Include="SecondaryVegetation.cs" />
     <Compile Include="Composite2.cs" />
     <Compile Include="Composite.cs" />

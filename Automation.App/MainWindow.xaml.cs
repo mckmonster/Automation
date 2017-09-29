@@ -204,5 +204,16 @@ namespace Automation.App
             e.Handled = true;
             if (zoomCtrl.ContextMenu != null) zoomCtrl.ContextMenu.IsOpen = true;
         }
+
+        private void Duplicate_Click(object sender, RoutedEventArgs e)
+        {
+            IntDialogBox dialog = new IntDialogBox();
+            var result = dialog.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                var selectedjob = myArea.LogicCore.Graph.Vertices.ToList().FindAll(job => job.Selected);
+                myArea.DuplicateNodes(selectedjob,dialog.SelectedValue);
+            }
+        }
     }
 }

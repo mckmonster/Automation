@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System;
 using System.Threading.Tasks;
 using log4net;
-using System.Xml;
 using YAXLib;
 
 namespace Automation.Core
@@ -12,18 +11,18 @@ namespace Automation.Core
 
     public abstract class Job : VertexBase, INotifyPropertyChanged
     {
-        protected ILog _log = log4net.LogManager.GetLogger("Automation.Core");
+        protected ILog Log = LogManager.GetLogger("Automation.Core");
 
         public event Action<Job> OnFinished;
         public event Action<Job> OnLaunch;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private int _nbPreviousJob;
-        private bool _PreviousStopped = false;
+        private bool _previousStopped;
         internal bool Canceled { get; set; }
 
         private JobState _state = JobState.NONE;
-        private readonly int NBRETRYMAX = 3;
+        private const int Nbretrymax = 3;
 
         [YAXDontSerialize]
         public JobState State
@@ -43,7 +42,6 @@ namespace Automation.Core
         public string Name
         {
             get;
-            private set;
         }
 
         [YAXDontSerialize]
@@ -53,12 +51,13 @@ namespace Automation.Core
             set;
         }
 
-        public Job(string name)
+        protected Job(string name)
         {
             Name = name;
         }
 
         protected abstract void Execute();
+        protected abstract void Cut(int _id, int _nbCut);
 
         public void RaisePropertyChanged(string name)
         {
@@ -69,32 +68,32 @@ namespace Automation.Core
         {
             Canceled = false;
             _nbPreviousJob++;
-            _PreviousStopped = false;
-            _log.Debug($"Register {_nbPreviousJob} {Name}, link on {vertex.Name}");
+            _previousStopped = false;
+            Log.Debug($"Register {_nbPreviousJob} {Name}, link on {vertex.Name}");
             vertex.OnFinished += PreviousJob_OnFinished;
         }
 
-        private void PreviousJob_OnFinished(Job _job)
+        private void PreviousJob_OnFinished(Job job)
         {
             _nbPreviousJob--;
  
-            _job.OnFinished -= PreviousJob_OnFinished;
+            job.OnFinished -= PreviousJob_OnFinished;
 
-            _log.Debug($"{Name} to finished {_nbPreviousJob}");
-            if (_job.State != JobState.SUCCEED)
+            Log.Debug($"{Name} to finished {_nbPreviousJob}");
+            if (job.State != JobState.SUCCEED)
             {
-                _log.Debug($"{_job.Name} is failed stop {Name}");
-                _PreviousStopped = true;
+                Log.Debug($"{job.Name} is failed stop {Name}");
+                _previousStopped = true;
             }
             if (_nbPreviousJob == 0)
             {
-                if (!_PreviousStopped && !Canceled)
+                if (!_previousStopped && !Canceled)
                 {
                     Launch();
                 }
                 else
                 {
-                    _log.Debug($"Stop {Name} because previous are failed");
+                    Log.Debug($"Stop {Name} because previous are failed");
                     Finish();
                 }
             }
@@ -115,7 +114,7 @@ namespace Automation.Core
             {
                 Start();
 
-                int _nbRetry = 0;
+                int nbRetry = 0;
 
                 do
                 {
@@ -129,8 +128,8 @@ namespace Automation.Core
                     }
                     else if (State == JobState.FAILED)
                     {
-                        _nbRetry++;
-                        _log.Debug($"Retry {Name} {_nbRetry} time(s)");
+                        nbRetry++;
+                        Log.Debug($"Retry {Name} {nbRetry} time(s)");
                     }
                     else if (State == JobState.SUCCEED)
                     {
@@ -140,7 +139,7 @@ namespace Automation.Core
                     {
                         throw new Exception($"We shouldn't be in state {State} after Execute");
                     }
-                } while (_nbRetry <= NBRETRYMAX);
+                } while (nbRetry <= Nbretrymax);
 
                 Finish();
             });
@@ -154,15 +153,32 @@ namespace Automation.Core
 
         private void Start()
         {
-            _log.Info($"Start {Name}");
+            Log.Info($"Start {Name}");
             OnLaunch?.Invoke(this);
             State = JobState.INPROGRESS;
         }
 
         private void Finish()
         {
-            _log.Info($"{Name} finished");
+            Log.Info($"{Name} finished");
             OnFinished?.Invoke(this);
         }
+
+        public IEnumerable<Job> Duplicate(int nbtime)
+        {
+            var newjobs = new List<Job>();
+
+            Selected = false;
+
+            for (var i = 0; i < nbtime; i++)
+            {
+                var newjob = MemberwiseClone() as Job;
+                newjob.Cut(i+1,nbtime+1);
+                newjobs.Add(newjob);
+            }
+            Cut(0, nbtime + 1);
+
+            return newjobs;
+        }
     }
-}
+};

@@ -87,11 +87,19 @@
     <Compile Include="ChooseJobType.xaml.cs">
       <DependentUpon>ChooseJobType.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GraphDuplicateNode.cs" />
     <Compile Include="GraphPropagate.cs" />
+    <Compile Include="IntDialogBox.xaml.cs">
+      <DependentUpon>IntDialogBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="JobStateToColorConverter.cs" />
     <Compile Include="MyArea.cs" />
     <Compile Include="PropertySelectorDataSelector.cs" />
     <Page Include="ChooseJobType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="IntDialogBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
