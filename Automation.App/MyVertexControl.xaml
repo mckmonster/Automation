@@ -52,7 +52,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Border Background="{Binding State, Converter={StaticResource JobStateToColor}}" CornerRadius="10,10,0,0"/>
-            <Expander Grid.Row="1" Margin="2" IsExpanded="True">
+            <Expander Grid.Row="1" Margin="2" IsExpanded="{Binding IsExtended}">
                 <Expander.Header>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox IsChecked="{Binding Selected}"/>

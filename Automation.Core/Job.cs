@@ -33,7 +33,7 @@ namespace Automation.Core
                 if (_state != value)
                 {
                     _state = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("State"));
+                    RaisePropertyChanged("State");
                 }
             }
         }
@@ -49,6 +49,21 @@ namespace Automation.Core
         {
             get;
             set;
+        }
+
+        private bool _isExtended = true;
+        [YAXDontSerialize]
+        public bool IsExtended
+        {
+            get { return _isExtended; }
+            set
+            {
+                if (_isExtended != value)
+                {
+                    _isExtended = value;
+                    RaisePropertyChanged("IsExtended");
+                }
+            }
         }
 
         protected Job(string name)

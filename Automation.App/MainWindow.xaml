@@ -21,7 +21,10 @@
                 <Button Click="Execute_Click">Execute</Button>
                 <Button Click="Retry_Click">Retry</Button>
                 <Button Click="Cancel_Click">Cancel</Button>
+            </ToolBar>
+            <ToolBar>
                 <Button Click="Duplicate_Click">Duplicate Selected</Button>
+                <ToggleButton Click="Extended_Click">Extended</ToggleButton>
             </ToolBar>
         </ToolBarTray>
         <graphx:ZoomControl Grid.Row="1" Name="zoomCtrl" MouseRightButtonDown="ZoomCtrl_OnMouseRightButtonDown">

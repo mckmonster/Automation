@@ -215,5 +215,14 @@ namespace Automation.App
                 myArea.DuplicateNodes(selectedjob,dialog.SelectedValue);
             }
         }
+
+        private void Extended_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(var vertexControl in myArea.GetAllVertexControls())
+            {
+                (vertexControl.Vertex as Job).IsExtended = !(vertexControl.Vertex as Job).IsExtended;
+            }
+            //myArea.RelayoutGraph();
+        }
     }
 }
