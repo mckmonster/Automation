@@ -19,6 +19,16 @@ namespace Automation.App
                 var target = edge.Target;
                 foreach (var property in node.GetType().GetProperties())
                 {
+                    var editable = (EditableAttribute[])property.GetCustomAttributes(typeof(EditableAttribute), true);
+                    if (editable.Length == 0)
+                    {
+                        continue;
+                    }
+                    if (editable[0].ReadOnly)
+                    {
+                        continue;
+                    }
+
                     if (property.GetValue(node) == null)
                     {
                         continue;
