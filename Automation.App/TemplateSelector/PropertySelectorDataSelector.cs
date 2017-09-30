@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Automation.App
+namespace Automation.App.TemplateSelector
 {
     public class PropertyDataTemplateSelector : DataTemplateSelector
     {

@@ -8,7 +8,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Automation.Core;
 
-namespace Automation.App
+namespace Automation.App.Converter
 {
     [ValueConversion(typeof(JobState), typeof(Brush))]
     public class JobStateToColorConverter : IValueConverter

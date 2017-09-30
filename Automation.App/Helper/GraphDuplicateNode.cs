@@ -1,15 +1,12 @@
-﻿using Automation.Core;
-using System;
+﻿using Automation.App.Gx;
+using Automation.Core;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
-namespace Automation.App
+namespace Automation.App.Helper
 {
     public static class GraphDuplicateNode
-    {
+    { 
         public static void DuplicateNodes(this MyArea area, List<Job> nodes, int nbDuplicate)
         {
             Dictionary<Job, List<Job>> jobs = new Dictionary<Job, List<Job>>();

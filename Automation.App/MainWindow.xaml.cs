@@ -1,30 +1,15 @@
 ﻿using GraphX.Controls;
-using GraphX.PCL.Common.Enums;
-using GraphX.PCL.Common.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using QuickGraph.Serialization;
-using YAXLib;
-using System.Xml;
-using QuickGraph.Algorithms;
 using Automation.Core;
-using Automation.Test.Plugin;
 using GraphX.Controls.Models;
 using Microsoft.Win32;
+using Automation.App.Controls;
+using Automation.App.Helper;
 
 namespace Automation.App
 {
@@ -133,7 +118,7 @@ namespace Automation.App
             myArea.LogicCore.Graph.PropagateNodeProperty((sender as MenuItem).DataContext as Job);
         }
 
-        private void MyArea_EdgeSelected(object sender, GraphX.Controls.Models.EdgeSelectedEventArgs args)
+        private void MyArea_EdgeSelected(object sender, EdgeSelectedEventArgs args)
         {
             if (args.MouseArgs.RightButton == MouseButtonState.Pressed)
             {
@@ -222,7 +207,6 @@ namespace Automation.App
             {
                 (vertexControl.Vertex as Job).IsExtended = !(vertexControl.Vertex as Job).IsExtended;
             }
-            //myArea.RelayoutGraph();
         }
     }
 }

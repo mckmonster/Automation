@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 using GraphX.Controls;
 using Automation.Core;
 
-namespace Automation.App
+namespace Automation.App.Gx
 {
     public class MyArea : GraphArea<Job, MyEdge, MyGraph>
     {

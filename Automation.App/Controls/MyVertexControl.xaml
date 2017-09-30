@@ -1,9 +1,11 @@
-﻿<UserControl x:Class="Automation.App.MyVertexControl"
+﻿<UserControl x:Class="Automation.App.Controls.MyVertexControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Automation.App"
+             xmlns:localconv="clr-namespace:Automation.App.Converter"
+             xmlns:localts="clr-namespace:Automation.App.TemplateSelector"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.ContextMenu>
@@ -12,7 +14,7 @@
         </ContextMenu>
     </UserControl.ContextMenu>
     <UserControl.Resources>
-        <local:JobStateToColorConverter x:Key="JobStateToColor"/>
+        <localconv:JobStateToColorConverter x:Key="JobStateToColor"/>
         <DataTemplate x:Key="DefaultPropertyTemplate">
             <Grid Margin="2">
                 <Grid.ColumnDefinitions>
@@ -43,7 +45,7 @@
                 <CheckBox Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding Value}"/>
             </Grid>
         </DataTemplate>
-        <local:PropertyDataTemplateSelector x:Key="PropertyTemplateSelector" DefaultDataTemplate="{StaticResource DefaultPropertyTemplate}" BoolDataTemplate="{StaticResource BoolPropertyTemplate}" ReadOnlyTemplate="{StaticResource ReadOnlyPropertyTemplate}"/>
+        <localts:PropertyDataTemplateSelector x:Key="PropertyTemplateSelector" DefaultDataTemplate="{StaticResource DefaultPropertyTemplate}" BoolDataTemplate="{StaticResource BoolPropertyTemplate}" ReadOnlyTemplate="{StaticResource ReadOnlyPropertyTemplate}"/>
     </UserControl.Resources>
     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
         <Grid>
