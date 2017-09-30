@@ -5,9 +5,6 @@ namespace Automation.Test.Plugin
 {
     public class TreeSplines : HoudiniJob
     {
-        [Editable]
-        public string WorldName { get; set; }
-
         public TreeSplines() : base("TreeSplines")
         {
             JobName = "250-TreeSplines.hip";

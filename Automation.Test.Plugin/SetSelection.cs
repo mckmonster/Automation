@@ -5,9 +5,6 @@ namespace Automation.Test.Plugin
 {
     public class SetSelection : HoudiniJob
     {
-        [Editable]
-        public string WorldName { get; set; }
-
         private bool NEEDS_SCIMITAR { get; set; }
 
         public SetSelection() : base("SetSelection")

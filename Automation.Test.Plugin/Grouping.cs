@@ -4,8 +4,7 @@ namespace Automation.Test.Plugin
 {
     public class Grouping : HoudiniJob
     {
-        [Editable]
-        public string WorldName { get; set; }
+
 
         [Editable]
         public string User { get; set; }

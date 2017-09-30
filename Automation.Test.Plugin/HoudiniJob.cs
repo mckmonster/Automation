@@ -9,6 +9,9 @@ namespace Automation.Test.Plugin
         public string JobName { get; set; }
 
         [Editable]
+        public string WorldName { get; set; }
+
+        [Editable]
         [YAXErrorIfMissed(YAXExceptionTypes.Ignore, DefaultValue = 0)]
         public int CodeVersionId { get; set; }
 

@@ -9,9 +9,6 @@ namespace Automation.Test.Plugin
 {
     public class TreeAssign : HoudiniJob
     {
-        [Editable]
-        public string WorldName { get; set; }
-
         public TreeAssign() : base("TreeAssign")
         {
             JobName = "240-TreeAssign.hip";

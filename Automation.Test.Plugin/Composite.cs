@@ -6,9 +6,6 @@ namespace Automation.Test.Plugin
     public class Composite : HoudiniJobFrameable
     {
         [Editable]
-        public string WorldName { get; set; }
-
-        [Editable]
         public int JobCount { get; set; }
 
         public Composite() : base("Composite")
