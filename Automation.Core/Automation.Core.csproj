@@ -71,8 +71,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditableAttribute.cs" />
-    <Compile Include="GraphExecute.cs" />
+    <Compile Include="Attributes\EditableAttribute.cs" />
+    <Compile Include="Helpers\GraphExecute.cs" />
     <Compile Include="JobFactory.cs" />
     <Compile Include="JobState.cs" />
     <Compile Include="MyEdge.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfo.cs" />
-    <Compile Include="GraphSerializer.cs" />
+    <Compile Include="Helpers\GraphSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

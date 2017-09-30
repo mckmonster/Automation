@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Automation.Core;
+﻿using Automation.Core.Attributes;
 
 namespace Automation.Test.Plugin
 {
@@ -11,12 +10,6 @@ namespace Automation.Test.Plugin
         public RockSplines() : base("RockSplines")
         {
             JobName = "140-RockSplines.hip";
-        }
-
-        protected override void Execute()
-        {
-            base.Execute();
-            Thread.Sleep(1000);
         }
     }
 }

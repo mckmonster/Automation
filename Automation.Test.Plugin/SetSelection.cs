@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Automation.Core;
+using Automation.Core.Attributes;
 
 namespace Automation.Test.Plugin
 {
@@ -14,12 +14,6 @@ namespace Automation.Test.Plugin
         {
             JobName = "060-SelectionSets.hip";
             NEEDS_SCIMITAR = true;
-        }
-
-        protected override void Execute()
-        {
-            base.Execute();
-            Thread.Sleep(1000);
         }
     }
 }

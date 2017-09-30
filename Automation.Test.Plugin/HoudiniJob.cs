@@ -1,9 +1,4 @@
-﻿using Automation.Core;
-using System;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows;
-using System.Xml;
+﻿using Automation.Core.Attributes;
 using YAXLib;
 
 namespace Automation.Test.Plugin

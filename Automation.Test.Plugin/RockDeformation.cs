@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Automation.Core;
+using Automation.Core.Attributes;
 
 namespace Automation.Test.Plugin
 {
@@ -14,12 +14,6 @@ namespace Automation.Test.Plugin
         public RockDeformation() : base("RockDeform")
         {
             JobName = "152-RockDeformation.hip";
-        }
-
-        protected override void Execute()
-        {
-            base.Execute();
-            Thread.Sleep(1000);
         }
     }
 }

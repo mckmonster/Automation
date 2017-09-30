@@ -1,4 +1,4 @@
-﻿using Automation.Core;
+﻿using Automation.Core.Attributes;
 using System.Threading;
 
 namespace Automation.Test.Plugin

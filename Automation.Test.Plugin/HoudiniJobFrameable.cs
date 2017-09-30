@@ -1,11 +1,4 @@
-﻿using Automation.Core;
-using GraphX.PCL.Common;
-using System;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows;
-using System.Xml;
-using YAXLib;
+﻿using Automation.Core.Attributes;
 
 namespace Automation.Test.Plugin
 {

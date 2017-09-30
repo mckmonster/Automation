@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Automation.Core
+namespace Automation.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class EditableAttribute : Attribute

@@ -10,6 +10,7 @@ using GraphX.Controls.Models;
 using Microsoft.Win32;
 using Automation.App.Controls;
 using Automation.App.Helper;
+using Automation.Core.Helpers;
 
 namespace Automation.App
 {

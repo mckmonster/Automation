@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Automation.Core;
+using Automation.Core.Attributes;
 
 namespace Automation.Test.Plugin
 {

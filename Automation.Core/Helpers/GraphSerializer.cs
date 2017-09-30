@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using YAXLib;
 
-namespace Automation.Core
+namespace Automation.Core.Helpers
 {
     public static class GraphSerializer
     {

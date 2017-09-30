@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Automation.Core
+namespace Automation.Core.Helpers
 {
     public static class GraphExecute
     {

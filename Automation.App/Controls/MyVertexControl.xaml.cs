@@ -1,4 +1,5 @@
 ﻿using Automation.Core;
+using Automation.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
