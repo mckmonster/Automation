@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Automation.App"
              xmlns:localconv="clr-namespace:Automation.App.Converter"
-             xmlns:localts="clr-namespace:Automation.App.TemplateSelector"
+             xmlns:core="clr-namespace:Automation.Core;assembly=Automation.Core"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.ContextMenu>
@@ -15,37 +16,6 @@
     </UserControl.ContextMenu>
     <UserControl.Resources>
         <localconv:JobStateToColorConverter x:Key="JobStateToColor"/>
-        <DataTemplate x:Key="DefaultPropertyTemplate">
-            <Grid Margin="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,1,0"/>
-                <TextBox  Grid.Column="1" Text="{Binding Value}"/>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="ReadOnlyPropertyTemplate">
-            <Grid Margin="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,1,0"/>
-                <TextBlock Grid.Column="1" Text="{Binding Value}"/>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="BoolPropertyTemplate">
-            <Grid Margin="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,1,0"/>
-                <CheckBox Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding Value}"/>
-            </Grid>
-        </DataTemplate>
-        <localts:PropertyDataTemplateSelector x:Key="PropertyTemplateSelector" DefaultDataTemplate="{StaticResource DefaultPropertyTemplate}" BoolDataTemplate="{StaticResource BoolPropertyTemplate}" ReadOnlyTemplate="{StaticResource ReadOnlyPropertyTemplate}"/>
     </UserControl.Resources>
     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
         <Grid>
@@ -61,7 +31,7 @@
                         <TextBlock Text="{Binding Name}"/>                        
                     </StackPanel>
                 </Expander.Header>
-                <ItemsControl x:Name="properties" ItemTemplateSelector="{StaticResource PropertyTemplateSelector}"/>
+                <xctk:PropertyGrid SelectedObject="{Binding}"/>
             </Expander>
         </Grid>
     </Border>

@@ -8,7 +8,6 @@ using YAXLib;
 
 namespace Automation.Core
 {
-
     public abstract class Job : VertexBase, INotifyPropertyChanged
     {
         protected ILog Log = LogManager.GetLogger("Automation.Core");
@@ -25,6 +24,7 @@ namespace Automation.Core
         private const int Nbretrymax = 3;
 
         [YAXDontSerialize]
+        [Browsable(false)]
         public JobState State
         {
             get { return _state; }
@@ -39,12 +39,14 @@ namespace Automation.Core
         }
 
         [YAXDontSerialize]
+        [Browsable(false)]
         public string Name
         {
             get;
         }
 
         [YAXDontSerialize]
+        [Browsable(false)]
         public bool Selected
         {
             get;
@@ -53,6 +55,7 @@ namespace Automation.Core
 
         private bool _isExtended = true;
         [YAXDontSerialize]
+        [Browsable(false)]
         public bool IsExtended
         {
             get { return _isExtended; }
