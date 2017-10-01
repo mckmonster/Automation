@@ -52,7 +52,7 @@ namespace Automation.App
             GraphExecute.OnFinished += GraphExecute_OnFinished;
         }
 
-        private List<Job> selectedVertices = new List<Job>();
+        private List<MyVertex> selectedVertices = new List<MyVertex>();
 
         private void MyArea_VertexSelected(object sender, VertexSelectedEventArgs args)
         {
@@ -75,7 +75,7 @@ namespace Automation.App
             {
                 if (args.Modifiers == ModifierKeys.Control)
                 {
-                    var job = args.VertexControl.Vertex as Job;
+                    var job = args.VertexControl.Vertex as MyVertex;
                     var jobselected = selectedVertices.Contains(job);
 
                     if (jobselected)
@@ -107,7 +107,7 @@ namespace Automation.App
                     }
                     else if (!control.Equals(args.Control))
                     {
-                        myArea.AddLink(control.Vertex as Job, args.Control.Vertex as Job);
+                        myArea.AddLink(control.Vertex as MyVertex, args.Control.Vertex as MyVertex);
                         control = null;
                     }
                 }
@@ -116,7 +116,7 @@ namespace Automation.App
 
         private void Propagate_Click(object sender, RoutedEventArgs e)
         {
-            myArea.LogicCore.Graph.PropagateNodeProperty((sender as MenuItem).DataContext as Job);
+            myArea.LogicCore.Graph.PropagateNodeProperty((sender as MenuItem).DataContext as MyVertex);
         }
 
         private void MyArea_EdgeSelected(object sender, EdgeSelectedEventArgs args)
@@ -180,8 +180,8 @@ namespace Automation.App
             var menuitem = sender as MenuItem;
             if (menuitem != null)
             {
-                var job = JobFactory.CreateJob((menuitem.Tag as Type)?.FullName);
-                myArea.AddJob(job, pos);
+                var vertex = new MyVertex((menuitem.Tag as Type)?.FullName);
+                myArea.AddJob(vertex, pos);
             }
         }
 
@@ -206,7 +206,7 @@ namespace Automation.App
         {
             foreach(var vertexControl in myArea.GetAllVertexControls())
             {
-                (vertexControl.Vertex as Job).IsExtended = !(vertexControl.Vertex as Job).IsExtended;
+                (vertexControl.Vertex as MyVertex).IsExtended = !(vertexControl.Vertex as MyVertex).IsExtended;
             }
         }
     }

@@ -12,7 +12,7 @@ using System.Xml;
 namespace Automation.Core
 {
 
-    public class MyGraph : BidirectionalGraph<Job, MyEdge>
+    public class MyGraph : BidirectionalGraph<MyVertex, MyEdge>
     {
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Automation.Core;
-using Automation.Core.Attributes;
+using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Automation.App.Helper
@@ -7,25 +8,22 @@ namespace Automation.App.Helper
     public static class GraphPropagate
     {
         private static int propagateInProgress;
-        public static void PropagateNodeProperty(this MyGraph graph, Job node)
+        public static void PropagateNodeProperty(this MyGraph graph, MyVertex node)
         {
             propagateInProgress++;
             foreach (var edge in graph.OutEdges(node))
             {
-                var target = edge.Target;
-                foreach (var property in node.GetType().GetProperties())
+                var source = node.Job;
+                var target = edge.Target.Job;
+                foreach (var property in source.GetType().GetProperties())
                 {
-                    var editable = (EditableAttribute[])property.GetCustomAttributes(typeof(EditableAttribute), true);
-                    if (editable.Length == 0)
-                    {
-                        continue;
-                    }
-                    if (editable[0].ReadOnly)
+                    var readOnlyAttr = (ReadOnlyAttribute)Attribute.GetCustomAttribute(property, typeof(ReadOnlyAttribute));
+                    if (readOnlyAttr != null && readOnlyAttr.IsReadOnly)
                     {
                         continue;
                     }
 
-                    if (property.GetValue(node) == null)
+                    if (property.GetValue(source) == null)
                     {
                         continue;
                     }
@@ -34,7 +32,7 @@ namespace Automation.App.Helper
                         var targetproperty = target.GetType().GetProperty(property.Name);
                         //if (targetproperty.GetValue(target) == null)
                         {
-                            targetproperty.SetValue(target, property.GetValue(node));
+                            targetproperty.SetValue(target, property.GetValue(source));
                             target.RaisePropertyChanged(targetproperty.Name);
                         }
                     }
@@ -44,7 +42,7 @@ namespace Automation.App.Helper
                     }
                 }
 
-                graph.PropagateNodeProperty(target);
+                graph.PropagateNodeProperty(edge.Target);
             }
             propagateInProgress--;
             if (propagateInProgress == 0)

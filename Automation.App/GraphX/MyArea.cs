@@ -4,7 +4,7 @@ using Automation.Core;
 
 namespace Automation.App.Gx
 {
-    public class MyArea : GraphArea<Job, MyEdge, MyGraph>
+    public class MyArea : GraphArea<MyVertex, MyEdge, MyGraph>
     {
         public MyArea()
         {
@@ -13,13 +13,13 @@ namespace Automation.App.Gx
             SetVerticesDrag(true);
         }
 
-        internal void AddJob(Job job)
+        internal void AddJob(MyVertex job)
         {
             LogicCore.Graph.AddVertex(job);
             AddVertex(job, new VertexControl(job));
         }
 
-        internal void AddJob(Job job, Point pos)
+        internal void AddJob(MyVertex job, Point pos)
         {
             LogicCore.Graph.AddVertex(job);
             var vc = new VertexControl(job);
@@ -27,7 +27,7 @@ namespace Automation.App.Gx
             AddVertex(job, vc);
         }
 
-        internal void AddLink(Job v1, Job v2)
+        internal void AddLink(MyVertex v1, MyVertex v2)
         {
             var e = new MyEdge(v1, v2, 1);
             LogicCore.Graph.AddEdge(e);

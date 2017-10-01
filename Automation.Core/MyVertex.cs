@@ -8,22 +8,23 @@ using YAXLib;
 
 namespace Automation.Core
 {
-    public abstract class Job : VertexBase, INotifyPropertyChanged
+    public class MyVertex : VertexBase, INotifyPropertyChanged
     {
         protected ILog Log = LogManager.GetLogger("Automation.Core");
 
-        public event Action<Job> OnFinished;
-        public event Action<Job> OnLaunch;
+        public event Action<MyVertex> OnFinished;
+        public event Action<MyVertex> OnLaunch;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private int _nbPreviousJob;
         private bool _previousStopped;
         internal bool Canceled { get; set; }
 
+        public IJob Job { get; private set; }
+
         private JobState _state = JobState.NONE;
         private const int Nbretrymax = 3;
 
-        [YAXDontSerialize]
         [Browsable(false)]
         public JobState State
         {
@@ -38,14 +39,6 @@ namespace Automation.Core
             }
         }
 
-        [YAXDontSerialize]
-        [Browsable(false)]
-        public string Name
-        {
-            get;
-        }
-
-        [YAXDontSerialize]
         [Browsable(false)]
         public bool Selected
         {
@@ -54,7 +47,6 @@ namespace Automation.Core
         }
 
         private bool _isExtended = true;
-        [YAXDontSerialize]
         [Browsable(false)]
         public bool IsExtended
         {
@@ -69,38 +61,42 @@ namespace Automation.Core
             }
         }
 
-        protected Job(string name)
+        public MyVertex(string jobType)
         {
-            Name = name;
+            Job = JobFactory.CreateJob(jobType);
+            RaisePropertyChanged("Name");
         }
 
-        protected abstract void Execute();
-        protected abstract void Cut(int _id, int _nbCut);
+        internal MyVertex(IJob job)
+        {
+            Job = job;
+            RaisePropertyChanged("Name");
+        }
 
         public void RaisePropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        internal void RegisterFinished(Job vertex)
+        internal void RegisterFinished(MyVertex vertex)
         {
             Canceled = false;
             _nbPreviousJob++;
             _previousStopped = false;
-            Log.Debug($"Register {_nbPreviousJob} {Name}, link on {vertex.Name}");
+            Log.Debug($"Register {_nbPreviousJob} {Job.Name}, link on {vertex.Job.Name}");
             vertex.OnFinished += PreviousJob_OnFinished;
         }
 
-        private void PreviousJob_OnFinished(Job job)
+        private void PreviousJob_OnFinished(MyVertex vertex)
         {
             _nbPreviousJob--;
  
-            job.OnFinished -= PreviousJob_OnFinished;
+            vertex.OnFinished -= PreviousJob_OnFinished;
 
-            Log.Debug($"{Name} to finished {_nbPreviousJob}");
-            if (job.State != JobState.SUCCEED)
+            Log.Debug($"{Job.Name} to finished {_nbPreviousJob}");
+            if (vertex.State != JobState.SUCCEED)
             {
-                Log.Debug($"{job.Name} is failed stop {Name}");
+                Log.Debug($"{vertex.Job.Name} is failed stop {Job.Name}");
                 _previousStopped = true;
             }
             if (_nbPreviousJob == 0)
@@ -111,7 +107,7 @@ namespace Automation.Core
                 }
                 else
                 {
-                    Log.Debug($"Stop {Name} because previous are failed");
+                    Log.Debug($"Stop {Job.Name} because previous are failed");
                     Finish();
                 }
             }
@@ -138,7 +134,14 @@ namespace Automation.Core
                 {
                     State = JobState.INPROGRESS;
 
-                    Execute();
+                    if (Job.Execute(Log))
+                    {
+                        State = JobState.SUCCEED;
+                    }
+                    else
+                    {
+                        State = JobState.FAILED;
+                    }
 
                     if (Canceled)
                     {
@@ -147,7 +150,7 @@ namespace Automation.Core
                     else if (State == JobState.FAILED)
                     {
                         nbRetry++;
-                        Log.Debug($"Retry {Name} {nbRetry} time(s)");
+                        Log.Debug($"Retry {Job.Name} {nbRetry} time(s)");
                     }
                     else if (State == JobState.SUCCEED)
                     {
@@ -171,30 +174,31 @@ namespace Automation.Core
 
         private void Start()
         {
-            Log.Info($"Start {Name}");
+            Log.Info($"Start {Job.Name}");
             OnLaunch?.Invoke(this);
             State = JobState.INPROGRESS;
         }
 
         private void Finish()
         {
-            Log.Info($"{Name} finished");
+            Log.Info($"{Job.Name} finished");
             OnFinished?.Invoke(this);
         }
 
-        public IEnumerable<Job> Duplicate(int nbtime)
+        public IEnumerable<MyVertex> Duplicate(int nbtime)
         {
-            var newjobs = new List<Job>();
+            var newjobs = new List<MyVertex>();
 
             Selected = false;
 
             for (var i = 0; i < nbtime; i++)
             {
-                var newjob = MemberwiseClone() as Job;
+                var newjob = Job.Clone() as IJob;
                 newjob.Cut(i+1,nbtime+1);
-                newjobs.Add(newjob);
+                var newvertex = new MyVertex(newjob);
+                newjobs.Add(newvertex);
             }
-            Cut(0, nbtime + 1);
+            Job.Cut(0, nbtime + 1);
 
             return newjobs;
         }

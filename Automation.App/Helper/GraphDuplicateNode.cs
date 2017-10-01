@@ -7,14 +7,14 @@ namespace Automation.App.Helper
 {
     public static class GraphDuplicateNode
     { 
-        public static void DuplicateNodes(this MyArea area, List<Job> nodes, int nbDuplicate)
+        public static void DuplicateNodes(this MyArea area, List<MyVertex> nodes, int nbDuplicate)
         {
-            Dictionary<Job, List<Job>> jobs = new Dictionary<Job, List<Job>>();
+            Dictionary<MyVertex, List<MyVertex>> jobs = new Dictionary<MyVertex, List<MyVertex>>();
 
             var graph = area.LogicCore.Graph;
             foreach (var node in nodes)
             {
-                jobs.Add(node, new List<Job>());
+                jobs.Add(node, new List<MyVertex>());
 
                 var newnodes = node.Duplicate(nbDuplicate);
                 foreach (var newnode in newnodes)

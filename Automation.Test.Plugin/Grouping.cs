@@ -1,12 +1,7 @@
-﻿using Automation.Core.Attributes;
-
-namespace Automation.Test.Plugin
+﻿namespace Automation.Test.Plugin
 {
     public class Grouping : HoudiniJob
     {
-
-
-        [Editable]
         public string User { get; set; }
 
         public bool NEEDS_TERRAIN { get; set; }

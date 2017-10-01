@@ -1,35 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Automation.Core;
+using log4net;
 
 namespace Automation.Test.Plugin
 {
-    public abstract class UbuildJob : Job
+    public abstract class UbuildJob : IJob
     {
         private static Random _rand = new Random();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private string _name;
+        [Browsable(false)]
+        public string Name
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_name))
+                {
+                    _name = GetType().Name;
+                }
+
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
         
-        public UbuildJob(string name) : base(name)
+        public UbuildJob()
         {
         }
 
-        protected override void Execute()
+        public UbuildJob(string name)
         {
-            Log.Info($"Execute {Name}");
+            Name = name;
+        }
 
-            Thread.Sleep(6000);
+        public bool Execute(ILog log)
+        {
+            log.Info($"Execute {Name}");
 
+            Thread.Sleep(_rand.Next(10000));
+            
             if (_rand.Next(100) < 20)
             {
-                State = JobState.FAILED;
+                return false;
             }
             else
             {
-                State = JobState.SUCCEED;
+                return true;
             }
+        }
+
+        public virtual void Cut(int _id, int _nbCut)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        public void RaisePropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

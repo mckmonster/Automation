@@ -31,20 +31,20 @@ namespace Automation.Core.Helpers
             stream.Close();
         }
 
-        private static List<Job> jobs = new List<Job>();
+        private static List<MyVertex> vertices = new List<MyVertex>();
         public static MyGraph DeSerialize(Stream stream)
         {
             MyGraph result;
-            jobs.Clear();
+            vertices.Clear();
             using (var reader = XmlReader.Create(stream))
             {
-                result = reader.DeserializeFromXml<Job, MyEdge, MyGraph>("MyGraph", "Job", "MyEdge", "",
+                result = reader.DeserializeFromXml<MyVertex, MyEdge, MyGraph>("MyGraph", "Job", "MyEdge", "",
                     rd => { return new MyGraph(); },
                     DeserializeNode,
                     rd =>
                     {
-                        var source = jobs.Find(job => job.ID.Equals(long.Parse(rd.GetAttribute("source"))));
-                        var target = jobs.Find(job => job.ID.Equals(long.Parse(rd.GetAttribute("target"))));
+                        var source = vertices.Find(job => job.ID.Equals(long.Parse(rd.GetAttribute("source"))));
+                        var target = vertices.Find(job => job.ID.Equals(long.Parse(rd.GetAttribute("target"))));
                         return new MyEdge(source, target);
                     });
             }
@@ -52,26 +52,29 @@ namespace Automation.Core.Helpers
             return result;
         }
 
-        private static void SerializeNode(XmlWriter wr, Job vr)
+        private static void SerializeNode(XmlWriter wr, MyVertex vr)
         {
-            wr.WriteAttributeString("type", vr.GetType().FullName);
+            wr.WriteAttributeString("type", vr.Job.GetType().FullName);
 
-            var serializer = new YAXLib.YAXSerializer(vr.GetType(), YAXSerializationOptions.DontSerializeNullObjects);
+            var serializer = new YAXLib.YAXSerializer(vr.Job.GetType(), YAXSerializationOptions.DontSerializeNullObjects);
             var result = serializer.Serialize(vr);
             wr.WriteRaw(result);
         }
 
-        private static Job DeserializeNode(XmlReader rd)
+        private static MyVertex DeserializeNode(XmlReader rd)
         {
             var typestring = rd.GetAttribute("type");
             var type = JobFactory.GetType(typestring);
             var serializer = new YAXLib.YAXSerializer(type, YAXSerializationOptions.DontSerializeNullObjects);
             var id = long.Parse(rd.GetAttribute("id"));
-            var job = serializer.Deserialize(rd.ReadInnerXml()) as Job;
-            job.ID = id;
-            jobs.Add(job);
+            var job = serializer.Deserialize(rd.ReadInnerXml()) as IJob;
+            var vertex = new MyVertex(job)
+            {
+                ID = id
+            };
+            vertices.Add(vertex);
             
-            return job;
+            return vertex;
         }
     }
 }

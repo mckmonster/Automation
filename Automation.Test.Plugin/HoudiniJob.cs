@@ -1,5 +1,4 @@
-﻿using Automation.Core.Attributes;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using YAXLib;
 
 namespace Automation.Test.Plugin
@@ -10,28 +9,24 @@ namespace Automation.Test.Plugin
         [ReadOnly(true)]
         public string JobName { get; set; }
 
-        [Editable]
         public string WorldName { get; set; }
 
-        [Editable(DisplayName = "Code Version Id")]
         [YAXErrorIfMissed(YAXExceptionTypes.Ignore, DefaultValue = 0)]
         public int CodeVersionId { get; set; }
-
-        [Editable]
+        
         [YAXErrorIfMissed(YAXExceptionTypes.Ignore, DefaultValue = 0)]
         public int BigFileVersionId { get; set; }
 
-        [Editable]
         [YAXErrorIfMissed(YAXExceptionTypes.Ignore, DefaultValue = 0)]
+        [Description("CL Data to create Job")]
         public int Data { get; set; }
+
+        [YAXErrorIfMissed(YAXExceptionTypes.Ignore, DefaultValue = 0)]
+        [Description("CL Rawdata to create Job")]
+        public int Rawdata { get; set; }
 
         public HoudiniJob(string name) : base(name)
         {
-        }
-
-        protected override void Cut(int _id, int _nbCut)
-        {
-            
         }
     }
 }

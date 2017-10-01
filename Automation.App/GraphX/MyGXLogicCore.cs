@@ -4,7 +4,7 @@ using GraphX.PCL.Common.Enums;
 
 namespace Automation.App.Gx
 {
-    public class MyGXLogicCore : GXLogicCore<Job, MyEdge, MyGraph>
+    public class MyGXLogicCore : GXLogicCore<MyVertex, MyEdge, MyGraph>
     {
         public MyGXLogicCore()
         {

@@ -11,10 +11,10 @@ namespace Automation.Core
     {
         private static Assembly assembly = Assembly.LoadFile(System.IO.Path.Combine(Environment.CurrentDirectory, "Automation.Test.Plugin.dll"));
 
-        public static Job CreateJob(string type)
+        public static IJob CreateJob(string type)
         {
             var job = assembly.CreateInstance(type);
-            return job as Job;
+            return job as IJob;
         }
         public static Type GetType(string type)
         {
@@ -31,25 +31,12 @@ namespace Automation.Core
                     continue;
                 }
 
-                if (IsJobType(type))
+                if (type.GetInterface("IJob") != null)
                 {
                     list.Add(type);
                 }
             }
             return list;
-        }
-
-        private static bool IsJobType(Type type)
-        {
-            if (type == null)
-            {
-                return false;
-            }
-            if (type == typeof(Job))
-            {
-                return true;
-            }
-            return IsJobType(type.BaseType);
         }
     }
 }

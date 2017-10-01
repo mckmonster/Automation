@@ -43,7 +43,7 @@ namespace Automation.Core.Helpers
 
         private static int _nbVerticesStopped = 0;
         private static int _nbVertices = 0;
-        private static void Vertex_OnFinished(Job obj)
+        private static void Vertex_OnFinished(MyVertex obj)
         {
             _nbVerticesStopped++;
             obj.OnFinished -= Vertex_OnFinished;
@@ -65,9 +65,5 @@ namespace Automation.Core.Helpers
                 }
             }
         }
-
-
-
-
     }
 }

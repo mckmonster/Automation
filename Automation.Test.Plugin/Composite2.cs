@@ -1,14 +1,9 @@
-﻿using Automation.Core.Attributes;
-using System.Threading;
-
-namespace Automation.Test.Plugin
+﻿namespace Automation.Test.Plugin
 {
     public class Composite2 : HoudiniJobFrameable
     {
-        [Editable]
         public int JobCount { get; set; }
 
-        [Editable]
         public string User { get; set; }
 
         public bool NEEDS_TERRAIN { get; set; }
@@ -17,12 +12,6 @@ namespace Automation.Test.Plugin
         {
             JobName = "411-Composite-02.hip";
             NEEDS_TERRAIN = true;
-        }
-
-        protected override void Execute()
-        {
-            base.Execute();
-            Thread.Sleep(5000);
         }
     }
 }

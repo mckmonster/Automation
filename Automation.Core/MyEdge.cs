@@ -3,9 +3,9 @@ using GraphX.PCL.Common.Models;
 
 namespace Automation.Core
 {
-    public partial class MyEdge : EdgeBase<Job>
+    public partial class MyEdge : EdgeBase<MyVertex>
     {
-        public MyEdge(Job source, Job target, double weight = 1) : base(source, target, weight)
+        public MyEdge(MyVertex source, MyVertex target, double weight = 1) : base(source, target, weight)
         {
         }
 

@@ -1,17 +1,14 @@
-﻿using Automation.Core.Attributes;
-
-namespace Automation.Test.Plugin
+﻿namespace Automation.Test.Plugin
 {
     public abstract class HoudiniJobFrameable : HoudiniJob
     {
-        [Editable]
         public string Frames { get; set; }
 
         public HoudiniJobFrameable(string name) : base(name)
         {
         }
 
-        protected override void Cut(int _id, int _nbCut)
+        public override void Cut(int _id, int _nbCut)
         {
             if (string.IsNullOrEmpty(Frames))
             {
