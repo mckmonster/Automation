@@ -68,6 +68,15 @@ namespace Automation.App
                     };
                     propagate.Click += Propagate_Click;
                     args.VertexControl.ContextMenu.Items.Add(propagate);
+
+                    var delete = new MenuItem()
+                    {
+                        Header = "Delete",
+                        DataContext = args.VertexControl.DataContext
+                    };
+                    delete.Click += Delete_Click;
+                    args.VertexControl.ContextMenu.Items.Add(delete);
+                    
                 }
                 args.VertexControl.ContextMenu.IsOpen = true;
             }
@@ -93,6 +102,7 @@ namespace Automation.App
                 }
             }
         }
+        
 
         private VertexControl control = null;
         private void MyAreaOnVertexClicked(object sender, VertexClickedEventArgs args)
@@ -112,6 +122,12 @@ namespace Automation.App
                     }
                 }
             }
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            var vertex = (sender as MenuItem).DataContext as MyVertex;
+            myArea.RemoveVertexAndEdges(vertex);
         }
 
         private void Propagate_Click(object sender, RoutedEventArgs e)
