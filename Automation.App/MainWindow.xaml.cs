@@ -34,7 +34,7 @@ namespace Automation.App
 
             if (zoomCtrl.ContextMenu != null)
             {
-                foreach (var type in NodeFactory.AvailableTypes())
+                foreach (var type in NodeFactory.AvailableTypes)
                 {
                     var item = new MenuItem()
                     {

@@ -10,7 +10,7 @@ namespace Automation.Core
 {
     public static class NodeFactory
     {
-        private static List<Assembly> m_assembly = new List<Assembly>();
+        public static List<Type> AvailableTypes { get; } = new List<Type>();
 
         static NodeFactory()
         {
@@ -18,34 +18,7 @@ namespace Automation.Core
             var files = Directory.GetFiles(folder, "*.dll");
             foreach (var file in files)
             {
-                 m_assembly.Add(Assembly.LoadFile(file));
-            }
-        }
-
-        public static INode CreateJob(string type)
-        {
-            foreach (var assembly in m_assembly)
-            {
-                if (assembly.GetType(type) != null)
-                {
-                    var node = assembly.CreateInstance(type);
-                    return node as INode;
-                }
-            }
-            return null;
-        }
-
-        public static Type GetType(string type)
-        {
-            var assembly = m_assembly.Where(_assembly => _assembly.GetType(type) != null);
-            return assembly.First().GetType(type);
-        }
-
-        public static List<Type> AvailableTypes()
-        {
-            var list = new List<Type>();
-            foreach (var assembly in m_assembly)
-            {
+                var assembly = Assembly.LoadFile(file);
                 foreach (var type in assembly.GetTypes())
                 {
                     if (type.IsAbstract)
@@ -55,11 +28,21 @@ namespace Automation.Core
 
                     if (type.GetInterface("INode") != null)
                     {
-                        list.Add(type);
+                        AvailableTypes.Add(type);
                     }
                 }
             }
-            return list;
+        }
+
+        public static INode CreateJob(string type)
+        {
+            var tp = GetType(type);
+            return Activator.CreateInstance(tp) as INode;
+        }
+
+        public static Type GetType(string type)
+        {
+            return AvailableTypes.Find(_type => _type.FullName.Equals(type, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
