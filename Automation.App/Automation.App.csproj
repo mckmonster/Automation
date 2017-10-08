@@ -166,10 +166,6 @@
       <Project>{4580885e-b4c1-4424-9146-eef64d97159e}</Project>
       <Name>Automation.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Automation.Test.Plugin\Automation.Test.Plugin.csproj">
-      <Project>{e38255b7-1d38-425b-883b-bceb6c1617d6}</Project>
-      <Name>Automation.Test.Plugin</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
