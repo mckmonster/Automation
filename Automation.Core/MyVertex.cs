@@ -20,13 +20,13 @@ namespace Automation.Core
         private bool _previousStopped;
         internal bool Canceled { get; set; }
 
-        public IJob Job { get; private set; }
+        public INode Job { get; private set; }
 
-        private JobState _state = JobState.NONE;
+        private NodeState _state = NodeState.NONE;
         private const int Nbretrymax = 3;
 
         [Browsable(false)]
-        public JobState State
+        public NodeState State
         {
             get { return _state; }
             set
@@ -63,11 +63,11 @@ namespace Automation.Core
 
         public MyVertex(string jobType)
         {
-            Job = JobFactory.CreateJob(jobType);
+            Job = NodeFactory.CreateJob(jobType);
             RaisePropertyChanged("Name");
         }
 
-        internal MyVertex(IJob job)
+        internal MyVertex(INode job)
         {
             Job = job;
             RaisePropertyChanged("Name");
@@ -94,7 +94,7 @@ namespace Automation.Core
             vertex.OnFinished -= PreviousJob_OnFinished;
 
             Log.Debug($"{Job.Name} to finished {_nbPreviousJob}");
-            if (vertex.State != JobState.SUCCEED)
+            if (vertex.State != NodeState.SUCCEED)
             {
                 Log.Debug($"{vertex.Job.Name} is failed stop {Job.Name}");
                 _previousStopped = true;
@@ -117,10 +117,10 @@ namespace Automation.Core
         {
             switch (State)
             {
-                case JobState.SUCCEED:
+                case NodeState.SUCCEED:
                     Finish();
                     return;
-                case JobState.INPROGRESS:
+                case NodeState.INPROGRESS:
                     throw new Exception("You shouldn't be in {State} on Launch");
             }
 
@@ -132,27 +132,27 @@ namespace Automation.Core
 
                 do
                 {
-                    State = JobState.INPROGRESS;
+                    State = NodeState.INPROGRESS;
 
                     if (Job.Execute(Log))
                     {
-                        State = JobState.SUCCEED;
+                        State = NodeState.SUCCEED;
                     }
                     else
                     {
-                        State = JobState.FAILED;
+                        State = NodeState.FAILED;
                     }
 
                     if (Canceled)
                     {
                         break;
                     }
-                    else if (State == JobState.FAILED)
+                    else if (State == NodeState.FAILED)
                     {
                         nbRetry++;
                         Log.Debug($"Retry {Job.Name} {nbRetry} time(s)");
                     }
-                    else if (State == JobState.SUCCEED)
+                    else if (State == NodeState.SUCCEED)
                     {
                         break;
                     }
@@ -176,7 +176,7 @@ namespace Automation.Core
         {
             Log.Info($"Start {Job.Name}");
             OnLaunch?.Invoke(this);
-            State = JobState.INPROGRESS;
+            State = NodeState.INPROGRESS;
         }
 
         private void Finish()
@@ -193,7 +193,7 @@ namespace Automation.Core
 
             for (var i = 0; i < nbtime; i++)
             {
-                var newjob = Job.Clone() as IJob;
+                var newjob = Job.Clone() as INode;
                 newjob.Cut(i+1,nbtime+1);
                 var newvertex = new MyVertex(newjob);
                 newjobs.Add(newvertex);

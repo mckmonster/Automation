@@ -10,28 +10,28 @@ using Automation.Core;
 
 namespace Automation.App.Converter
 {
-    [ValueConversion(typeof(JobState), typeof(Brush))]
+    [ValueConversion(typeof(NodeState), typeof(Brush))]
     public class JobStateToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
             {
-                var state = (JobState)value;
+                var state = (NodeState)value;
 
                 var color = Colors.Black;
                 switch (state)
                 {
-                    case JobState.NONE:
+                    case NodeState.NONE:
                         color = Colors.Black;
                         break;
-                    case JobState.INPROGRESS:
+                    case NodeState.INPROGRESS:
                         color = Colors.Orange;
                         break;
-                    case JobState.SUCCEED:
+                    case NodeState.SUCCEED:
                         color = Colors.Green;
                         break;
-                    case JobState.FAILED:
+                    case NodeState.FAILED:
                         color = Colors.Red;
                         break;
                     default:

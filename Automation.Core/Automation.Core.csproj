@@ -72,9 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\GraphExecute.cs" />
-    <Compile Include="IJob.cs" />
-    <Compile Include="JobFactory.cs" />
-    <Compile Include="JobState.cs" />
+    <Compile Include="INode.cs" />
+    <Compile Include="NodeFactory.cs" />
+    <Compile Include="NodeState.cs" />
     <Compile Include="MyEdge.cs" />
     <Compile Include="MyGraph.cs" />
     <Compile Include="MyVertex.cs" />

@@ -10,7 +10,7 @@ using log4net;
 
 namespace Automation.Test.Plugin
 {
-    public abstract class UbuildJob : IJob
+    public abstract class UbuildJob : INode
     {
         private static Random _rand = new Random();
 

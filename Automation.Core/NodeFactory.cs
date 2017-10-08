@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Automation.Core
 {
-    public static class JobFactory
+    public static class NodeFactory
     {
         private static List<Assembly> m_assembly = new List<Assembly>();
 
-        static JobFactory()
+        static NodeFactory()
         {
             var folder = Path.Combine(Environment.CurrentDirectory, "plugins");
             var files = Directory.GetFiles(folder, "*.dll");
@@ -22,14 +22,14 @@ namespace Automation.Core
             }
         }
 
-        public static IJob CreateJob(string type)
+        public static INode CreateJob(string type)
         {
             foreach (var assembly in m_assembly)
             {
                 if (assembly.GetType(type) != null)
                 {
-                    var job = assembly.CreateInstance(type);
-                    return job as IJob;
+                    var node = assembly.CreateInstance(type);
+                    return node as INode;
                 }
             }
             return null;
@@ -53,7 +53,7 @@ namespace Automation.Core
                         continue;
                     }
 
-                    if (type.GetInterface("IJob") != null)
+                    if (type.GetInterface("INode") != null)
                     {
                         list.Add(type);
                     }

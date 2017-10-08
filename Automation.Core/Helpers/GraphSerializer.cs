@@ -64,10 +64,10 @@ namespace Automation.Core.Helpers
         private static MyVertex DeserializeNode(XmlReader rd)
         {
             var typestring = rd.GetAttribute("type");
-            var type = JobFactory.GetType(typestring);
+            var type = NodeFactory.GetType(typestring);
             var serializer = new YAXLib.YAXSerializer(type, YAXSerializationOptions.DontSerializeNullObjects);
             var id = long.Parse(rd.GetAttribute("id"));
-            var job = serializer.Deserialize(rd.ReadInnerXml()) as IJob;
+            var job = serializer.Deserialize(rd.ReadInnerXml()) as INode;
             var vertex = new MyVertex(job)
             {
                 ID = id

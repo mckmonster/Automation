@@ -21,7 +21,7 @@ namespace Automation.Core.Helpers
             {
                 if (!_retry)
                 {
-                    vertex.State = JobState.NONE;
+                    vertex.State = NodeState.NONE;
                 }
 
                 foreach (var outEdge in graph.OutEdges(vertex))

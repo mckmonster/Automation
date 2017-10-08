@@ -1,6 +1,6 @@
 ﻿namespace Automation.Core
 {
-    public enum JobState
+    public enum NodeState
     {
         NONE,
         INPROGRESS,

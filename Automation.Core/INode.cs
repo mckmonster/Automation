@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Automation.Core
 {
-    public interface IJob : ICloneable, INotifyPropertyChanged
+    public interface INode : ICloneable, INotifyPropertyChanged
     {
         string Name { get; set; }
 
